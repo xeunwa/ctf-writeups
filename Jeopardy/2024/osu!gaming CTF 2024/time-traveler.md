@@ -1,5 +1,5 @@
 ---
-description: osint webarchives, idor with binary search
+description: osint webarchives, IDOR with binary search
 platform: osu!gaming CTF
 categories: Web, OSINT
 tags:
