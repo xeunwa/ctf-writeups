@@ -1,3 +1,13 @@
+---
+description: osint webarchives, idor with binary search
+platform: osu!gaming CTF
+categories: Web, OSINT
+tags:
+  - web-archives
+  - IDOR
+---
+
+
 # osu!gaming CTF writeups
 Write-up for [osu!gaming CTF](https://ctftime.org/event/2165) OSINT challenge - time-traveler (334 points) 
 
