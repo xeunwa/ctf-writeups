@@ -14,6 +14,7 @@ It looks like skat finally remembered to use his password manager! One small pro
 
 Can you help him log back in so he can get back to his favorite RF forums?
 
+author: User
 > We are provided a main.go server file which looks like a password manager app with a standard login mechanism. 
 
 

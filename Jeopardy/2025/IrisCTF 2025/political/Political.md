@@ -1,3 +1,14 @@
+---
+date: 2025-01-05
+description: Bypassing chrome policy denylist
+platform: irisCTF2025
+categories: Web
+tags:
+  - url-bypass
+  - code-review
+  - python
+duration:
+---
 
 # Political
 
@@ -32,6 +43,7 @@ policy.json
   2     "URLBlocklist": ["*/giveflag", "*?token=*"]
   3 }
 ```
+[https://chromeenterprise.google/policies/?policy=URLBlocklist](https://chromeenterprise.google/policies/?policy=URLBlocklist "https://chromeenterprise.google/policies/?policy=URLBlocklist")
 
 
 - tried to bypass using `/giveflag?a&token={token}` but chrome policy is smarter than that. Apparently adding arguments does not invalidate the `*/giveflag` blocklist and putting the `token`as second argument does not work as well
