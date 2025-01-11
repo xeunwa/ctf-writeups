@@ -1,2 +1,2 @@
-# ctf
-solutions/notes for ctf and labs etc 
+# ctf-writeups
+writeups/notes for ctf and labs etc 
