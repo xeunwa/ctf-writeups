@@ -1,3 +1,15 @@
+---
+date: 2024-12-09
+description: OSINT in general, some web
+platform: TCONCTF 7
+categories: Web, OSINT, Misc
+tags:
+  - steganography
+  - php/8-1-0-dev
+  - AES
+duration:
+---
+
 # HacktheNorth/TCONCTF7 Writeups 
 
 Here are my writeups for solved challenges.

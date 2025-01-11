@@ -1,3 +1,14 @@
+---
+date: 2024-04-30
+description: Abusing API business logic to get rich
+platform: UMDCTF 2024
+categories: Web
+tags:
+  - API
+  - insecure-design
+duration:
+---
+
 # # UMDCTF 2024 Writeups
 
 Writeups for solved [UMDCTF 2024](https://ctftime.org/event/2323) web challenges (2/4)
@@ -6,7 +17,6 @@ Writeups for solved [UMDCTF 2024](https://ctftime.org/event/2323) web challenges
 
 # web
 ## web/Donations
-`#API #business-logic`
 > Show off your capitalistic altruism today. https://donations.challs.umdctf.io
 
 Challenge about abusing the  business logic and increasing our initial account balance

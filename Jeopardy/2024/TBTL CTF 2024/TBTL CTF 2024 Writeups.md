@@ -1,3 +1,20 @@
+---
+date: 2024-05-12
+description: " indexedDB, LFI, CSV, Boolean-based Neo4j Injection"
+platform: TBTL CTF 2024
+categories: Web
+tags:
+  - insecure-design
+  - LFI
+  - csv-injection
+  - python
+  - code-review
+  - php
+  - graphQL
+  - neo4j
+  - local-storage
+duration:
+---
 # TBTL CTF 2024 Writeups
 Writeups for solved [TBTL CTF 2024](https://ctftime.org/event/2324) web challenges (4/4)
 
@@ -5,13 +22,13 @@ Writeups for solved [TBTL CTF 2024](https://ctftime.org/event/2324) web challeng
 
 
 # web/Butterfly
-`#indexDB` `#local-storage` `#session-storage`
+`#indexDB` `#local-storage` `#session-storage` `#insecure-design`
 > We've noticed some unusual communication occurring on a particular website. Could you assist in uncovering any hidden secrets being exchanged through this seemingly innocent platform?
 
 [https://tbtl-butterfly.chals.io/](https://tbtl-butterfly.chals.io/)
 
 indexdb had some suspicious looking data (flag) 
-![Alt text](images/image-1.png)
+![Alt text](ctf/Jeopardy/2024/TBTL%20CTF%202024/_attachments/image-1.png)
 `U2FsdGVkX19wWL7itIL7TZcLTP/e1ulrZolI9AHTA8OBGOCodbZKdOxPF41rGV9C+X7PZPt9ISJKQMpTl+Fwew==`
 
 
@@ -39,7 +56,7 @@ flag: **TBTL{th15_1S_n0t_53CUR3_5T0r4G3}**
 `#lfi`
 
 LFI challenge that has a `test.php` rabbit hole 
-![Alt text](images/image-2.png)
+![Alt text](ctf/Jeopardy/2024/TBTL%20CTF%202024/_attachments/image-2.png)
 
 Standard files can be found and if we just look around we can find the flag stored in `database.sqlite`.
 
@@ -62,7 +79,7 @@ r = requests.get(url+query)
 print(r.headers)
 print(r.text)
 ```
-![Alt text](images/image-5.png)
+![Alt text](_attachments/image-5.png)
 flag: **TBTL{4Typ1c41_d4T4B453_u54g3}**
 
 # web/RND for DATA Science
@@ -134,7 +151,7 @@ r = requests.post(url, data=data)
 print(r.text)
 ```
 
-![Alt text](images/image-6.png)
+![Alt text](_attachments/image-6.png)
 
 flag: **TBTL{d4T4_5c13nc3_15_n07_f0r_r0ck135}**
 

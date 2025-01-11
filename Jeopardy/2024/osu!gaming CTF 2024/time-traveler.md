@@ -14,11 +14,11 @@ Write-up for [osu!gaming CTF](https://ctftime.org/event/2165) OSINT challenge - 
 ---
 
 # osint/time-traveler
-![Alt text](images/image-8.png)
+![Alt text](_attachments/image-8.png)
 
 ## OSINT part
 We were given https://osu.ppy.sh/users/11118671 which is a profile page for a user Strellic in osu! 
-![Alt text](images/strellic.png)
+![Alt text](strellic.png)
 
 I tried looking around but ultimately was not able to find anything that will help progress.
 
@@ -26,13 +26,13 @@ I went back to focus on the profile page message. I tried looking at Strellic's 
 
 There was a snapshot in February 29 in Strellic's profile.
 
-![Alt text](images/image-1.png)
+![Alt text](ctf/Jeopardy/2024/osu!gaming%20CTF%202024/_attachments/image-1.png)
 
 This leads to another clue that there is a post in the introductions forum page. https://osu.ppy.sh/community/forums/8
 
 Looking around in the live website, I wasn't able to find Strellic's post. I thought of again utilizing the wayback machine again and found something interesting.
 
-![Alt text](images/image-3.png)
+![Alt text](_attachments/image-3.png)
 
 Strellic's post was also captured in February 29 in wayback machine. when we hover this post we find crucial information like the date of the post (2024-02-09T07:45:27+00:00) and forum ID.
 
@@ -45,16 +45,16 @@ After knowing that the flag might be in the deleted post in the introductions fo
 As it turns out there is. After looking around existing post and links in a forum. I was able to find information that helped me solved the challenge.
 
 1. When you create a topic in a forum - like Strellic did. It will generate a topic that looks like this in the URL https://osu.ppy.sh/community/forums/topics/1888734 (post in the screenshots just used as an example)
-![Alt text](images/image-4.png)
+![Alt text](_attachments/image-4.png)
 
 2. Along with this, there also another link generated called a POST which looks something like this in the URL https://osu.ppy.sh/community/forums/posts/9448728. Accessing this directly just redirects you to the forum topic.
 
 3. However, accessing the specific post by accessing the /raw endpoint will redirect you to the actual message of that post https://osu.ppy.sh/community/forums/posts/9448728/raw?quote=1
-![Alt text](images/image-5.png)
+![Alt text](ctf/Jeopardy/2024/osu!gaming%20CTF%202024/_attachments/image-5.png)
 
 4. I also found out that even deleted post in the forum can be viewed using this /raw endpoint. For example, I created a post in the introductions page and took note of the URL. I was able to access it even when deleted
 https://osu.ppy.sh/community/forums/posts/9463478/raw?quote=1 (this does not work now but it would look something like this)
-![Alt text](images/image-6.png)
+![Alt text](ctf/Jeopardy/2024/osu!gaming%20CTF%202024/_attachments/image-6.png)
 
 This is helpful because if we find out the ID of Strellic's post we would be able to view his message.
 
@@ -64,7 +64,7 @@ The POST ID is incremental, which means we can view the post. However simply dec
 I found out a faster way by just accessing the URL without adding the endpoint. Using this scheme will redirect to the POST which will reveal the date and time  
 https://osu.ppy.sh/community/forums/posts/9448728. Since this is being redirected. 
 
-![Alt text](images/image-7.png)
+![Alt text](_attachments/image-7.png)
 
 Since we know that Strellic's deleted post was from February 29. I just needed to find a post posted in February 29 to narrow down the search. I did this in the browser and just looked at the post date.
 
@@ -103,7 +103,7 @@ def find_strellic():
 
 The flag was found in https://osu.ppy.sh/community/forums/posts/9454307/raw?quote=1
 
-![Alt text](images/flag.png)
+![Alt text](flag.png)
 flag: **osu{w4it_are_y0u_a_t1me_tr4veler}**
 
 

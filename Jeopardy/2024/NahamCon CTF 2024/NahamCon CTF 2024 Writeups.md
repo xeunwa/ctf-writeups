@@ -1,3 +1,19 @@
+---
+date: 2024-05-29
+description: webdav, flask brute, wp, reversing encrypted log
+platform: NahamCon CTF 2024
+categories: Web, Scripting
+tags:
+  - WebDav
+  - flask
+  - code-review
+  - brute-force/authentication
+  - wordpress
+  - hash
+  - reversing
+duration:
+---
+
 # NahamCon CTF 2024 Writeups
 Writeups for some web and scripting challenges including the wordpress whitebox challenges
 
@@ -14,7 +30,7 @@ This is a challenge relating to WebDav. We can see in the `/code` path that it r
 Knowing about `PROPFIND` we can fingerprint its probably using webdav and learn above some additional methods like `MOVE`
 https://learn.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2003/aa142926(v=exchg.65).
 <!-- {{< image src="image.png" width="100%">}} -->
-![Alt text](images/image.png)
+![Alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image.png)
 
 
 ### Attack Chain
@@ -33,8 +49,8 @@ GET /static/flag.txt
 ```
 
 ### MOVE the flag
-![Alt text](images/image-21.png)
-![Alt text](images/static.png)
+![Alt text](image-21.png)
+![Alt text](static.png)
 
 
 ## Thomas DEVerson (175 pts)
@@ -45,11 +61,11 @@ GET /static/flag.txt
 Flask session brute-forcing challenge. There is a source code disclosure in `/backup` revealing the secret_key value which eappends current datetime value to the flask secret. `THE_REYNOLDS_PAMPHLET-`  We are also given available users
 
 ### /backup
-![alt text](images/image-3.png)
+![alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-3.png)
 
 Clue when the `datetime.now()` was initially ran in `/status`
 
-![alt text](images/image-2.png)
+![alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-2.png)
 
 From this we can learn try and generate a valid secret by subtracting current date to the returned output from status.
 
@@ -80,7 +96,9 @@ if match:
     secret_key = f'THE_REYNOLDS_PAMPHLET-{formatted}'
     print(secret_key)
 ```
-![Alt text](images/image-4.png)
+
+
+![Alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-4.png)
 
 output `THE_REYNOLDS_PAMPHLET-179708251645`. We can try this and forge our own cookie and submit to the `/message` endpoint but this will not work. 
 ```bash
@@ -98,7 +116,7 @@ for i in {0..99999}; do
 done > words.txt
 ```
 
-![Alt text](images/image-5.png)
+![Alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-5.png)
 
 ```bash
 # brute-force flask session cookie
@@ -110,19 +128,19 @@ flask-unsign --sign --cookie "{'name': 'Jefferson'}" --secret 'THE_REYNOLDS_PAMP
 ```
 output: `eyJuYW1lIjoiSmVmZmVyc29uIn0.ZlDoZA.S5h0UBS1jk8CX4I9P5jCrVsBDOA` paste to our session cookie and get the flag 
 
-![alt text](images/image-7.png)
+![alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-7.png)
 
 
 ## Secret Info (460 pts)
 `#wordpress` `#code-review` 
 
 Under Sponsorship category. This is a Whitebox web challenge involving wordpress.
-> Our admin accidentally published some secret images on our site. Unfortunately, somehow we are not able to unpublish the secret image, however, we tried to apply some protection to our site. This should be enough, right?
+> Our admin accidentally published some secret _attachments on our site. Unfortunately, somehow we are not able to unpublish the secret image, however, we tried to apply some protection to our site. This should be enough, right?
 This is a fully white box challenge, almost no heavy brute force is needed.
 
 We are provided a wordpress source code with docker file. The only thing here that might be related to the challenge is the `test-plugin.php` and the flag.png. 
 
-![Alt text](images/image-11.png)
+![Alt text](image-11.png)
 
 When we register through browser, we can't actually activate our account because our the email service is not working and we can't confirm our account and login. There is no way to register through the browser. This is where the **feature** in the `test-plugin.php` will be used. 
 
@@ -147,21 +165,21 @@ function register_user(){
     echo "user created";
 }
 ```
-![alt text](images/image-15.png)
+![alt text](image-15.png)
 
 The `add_action("wp_ajax_nopriv_register_user", "register_user");` is an action hook that allows user registration through `wp-admin/admin-ajax.php`  https://developer.wordpress.org/plugins/javascript/ajax/
 
 The request made to `admin-ajax.php` will look like this
-![Alt text](images/image-17.png)
+![Alt text](image-17.png)
 
 We now login through wordpress by using credentials registered through `admin-ajax.php`
-![Alt text](images/image-18.png)
+![Alt text](image-18.png)
 
 ### Brute-Forcing media content
 We got through dashboard. Now what? I really thought that after getting in the dashboard I could just access the flag in the media files but it seems that i cannot view the media files with my role. 
 
 I learned media files are available once authenticated and once we know the file name that we are looking for we can just brute-force the `/uploads` directory year and date.
-![Alt text](images/image-1.png)
+![Alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-1.png)
 
 In the Dockerfile we can see the `flag.png` is renamed to `/flag_secret_not_so_random_get_me_1337.png`
 
@@ -196,8 +214,8 @@ for month in range(0, 13):
         print("Flag URL:", url)
         break
 ```
-![Alt text](images/image-20.png)
-![Alt text](images/secret-info.png)
+![Alt text](image-20.png)
+![Alt text](secret-info.png)
 
 
 ## WP Elevator (in-progress)
@@ -237,7 +255,7 @@ print(content)
 We are given the `decryption_server.log`
 
 
-![Alt text](images/image-8.png)
+![Alt text](ctf/Jeopardy/2024/NahamCon%20CTF%202024/_attachments/image-8.png)
 
 server.py provided file
 ```python

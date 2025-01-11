@@ -1,3 +1,19 @@
+---
+date: 2024-04-16
+description: Bash jails, Blind XSS & CMD injection, etc.
+platform: b0ilers CTF 2024
+categories: Web, Misc, Rev
+tags:
+  - command-injection/linux
+  - python
+  - jails
+  - code-review
+  - javascript
+  - deobfuscation
+  - minecraft
+  - xss/blind
+duration:
+---
 # b0ilers CTF 2024 Writeups
 Writeups for solved [b01lers CTF 2024](https://ctftime.org/event/2250) challenges
 
@@ -47,7 +63,7 @@ find . -name "*.nbt" -exec grep minecraft:paper {} \;
 find . -name "*.nbt" -exec grep -a bctf {} \;
 
 ```
-![Alt text](images/image-2.png)
+![Alt text](_attachments/image-2.png)
 flag: **bctf{ch1st_ch2st_ch3st_ch4st_ch5st}**
 
 ---
@@ -87,7 +103,7 @@ r = requests.post(url, data=data)
 print(r.text)
 ```
 {{< image src="image.png" caption="listener" width="100%">}}
-![Alt text](images/image.png)
+![Alt text](_attachments/image.png)
 
 flag: **bctf{wow_you_can_get_a_free_ad_now!}**
 
@@ -195,7 +211,7 @@ if __name__ == '__main__':
 To view the flag, I just opened the uploaded file under `/uploads` on the listener server
 
 {{< image src="image-1.png" caption="flag.png" width="80%">}}
-![Alt text](images/image-1.png)
+![Alt text](_attachments/image-1.png)
 
 flag: **bctf{Lucky_you_I_did_not_code_this_stuff_in_Ruby_lasudkjklhdsfkhjkae}**
 

