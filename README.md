@@ -1,2 +1,2 @@
-# ctf-dmp
-ctf/labs writeups dump
+# ctf
+solutions/notes for ctf and labs etc 
