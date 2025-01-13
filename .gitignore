@@ -7,3 +7,6 @@ pwn.college*
 *.obsidian*
 *__*
 _templates*
+*node_modules*
+*.zip
+*.tar*
