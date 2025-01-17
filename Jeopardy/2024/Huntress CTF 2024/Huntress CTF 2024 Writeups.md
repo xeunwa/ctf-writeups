@@ -1,6 +1,6 @@
 ---
 date: 2024-11-03
-description: 
+description: PyYAML, ZipSlip, SQLi to pickleRCE, Timing Attack
 platform: Huntress CTF 2024
 categories: Web, Scripting, Misc
 tags:
