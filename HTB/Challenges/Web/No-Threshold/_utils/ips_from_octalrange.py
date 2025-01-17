@@ -11,5 +11,5 @@ for i in range(n):
     ipv4 = octal_to_ipv4(octal)
     print(f"Generated: {octal} {ipv4}")
     f.write(f"{ipv4}\n")
-	
+
 f.close()
