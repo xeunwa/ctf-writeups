@@ -128,7 +128,8 @@ for l in range(1, n+1):
 			break
 ```
 
-# Techno Oracle
+# Misc
+## Techno Oracle
 A techno oracle has been discovered in the depths of the internet. It's said that it can predict the future, but only if you ask it the right questions. Can you figure out how to get the oracle to tell you the flag?
 
 [https://techno-oracle.tuctf.com](https://techno-oracle.tuctf.com)
