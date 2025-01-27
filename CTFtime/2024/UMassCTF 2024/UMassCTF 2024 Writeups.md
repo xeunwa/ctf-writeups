@@ -1,7 +1,7 @@
 ---
 date: 2024-04-22
 description: CMD injection, HTTP, Header injection
-platform: 
+platform: UMassCTF 2024
 categories: Web
 tags:
   - code-review
