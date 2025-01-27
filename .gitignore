@@ -4,7 +4,7 @@ CTFLearn*
 pwn.college*
 *.obsidian*
 *__*
-_templates*
+__templates*
 *node_modules*
 *.zip
 *.tar*
