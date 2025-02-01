@@ -6,5 +6,8 @@ pwn.college*
 *__*
 __templates*
 *node_modules*
+venv*
 *.zip
 *.tar*
+exfil*
+scans*
