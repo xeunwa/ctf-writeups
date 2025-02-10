@@ -1,6 +1,6 @@
 ---
 date: 2025-01-25
-description: GraphQL password field, jailbreak
+description: GraphQL broken access, brute-force hash, jailbreak
 platform: TUCTF 2025
 categories: Web, AI, Misc
 tags:
