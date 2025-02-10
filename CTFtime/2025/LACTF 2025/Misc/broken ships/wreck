@@ -1,0 +1,62 @@
+{
+   "schemaVersion": 1,
+   "name": "rms-titanic",
+   "tag": "wreck",
+   "architecture": "arm64",
+   "fsLayers": [
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:99aa9a6fbb91b4bbe98b78d048ce283d3758feebfd7c0561c478ee2ddf23c59f"
+      },
+      {
+         "blobSum": "sha256:529375a25a3d641351bf6e3e94cb706cda39deea9e6bdc3a8ba6940e6cc4ef65"
+      },
+      {
+         "blobSum": "sha256:60b6ee789fd8267adc92b806b0b8777c83701b7827e6cb22c79871fde4e136b9"
+      },
+      {
+         "blobSum": "sha256:bae434f430e461b8cff40f25e16ea1bf112609233052d0ad36c10a7ab787e81c"
+      },
+      {
+         "blobSum": "sha256:9082f840f63805c478931364adeea30f4e350a7e2e4f55cafe4e3a3125b04624"
+      }
+   ],
+   "history": [
+      {
+         "v1Compatibility": "{\"architecture\":\"arm64\",\"config\":{\"Env\":[\"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"],\"Cmd\":[\"sleep\",\"infinity\"],\"ArgsEscaped\":true},\"created\":\"2025-02-04T00:11:23.087132546Z\",\"id\":\"835e639aa9d090b4bb2028c0e86ca49ee10477c048c01d2d500ca1ff0620b854\",\"os\":\"linux\",\"parent\":\"d5417d70da785f20922f5180d3057298de842c800f7ac8ef80f9a5707aa933b2\",\"throwaway\":true,\"variant\":\"v8\"}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"d5417d70da785f20922f5180d3057298de842c800f7ac8ef80f9a5707aa933b2\",\"parent\":\"fc692fb7be236ded3f97802b5b2a2e4b8a20366157c22a8c448c25752c5bc84c\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2025-02-04T00:11:23.087132546Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c echo \\\"flag\\\" \\u003e /flag.txt # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"fc692fb7be236ded3f97802b5b2a2e4b8a20366157c22a8c448c25752c5bc84c\",\"parent\":\"efd22692f3385ccf96866e1b10124f18512ae3b48848ddcfc662a43ee64104fc\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2025-02-04T00:11:22.988021129Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c rm flag.txt # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"efd22692f3385ccf96866e1b10124f18512ae3b48848ddcfc662a43ee64104fc\",\"parent\":\"0792c9fcb47020e0001147667e2455c29e8a8865d49b517ec09920b625b400d6\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2025-02-04T00:11:22.870739296Z\",\"container_config\":{\"Cmd\":[\"COPY flag.txt / # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"0792c9fcb47020e0001147667e2455c29e8a8865d49b517ec09920b625b400d6\",\"parent\":\"94d87d7e20a72f3b9093cd8c623461dd98995bf0d3d83a2af6cf81d68b8e5bdb\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2025-02-04T00:11:22.858620838Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c echo \\\"lactf{fake_flag}\\\" \\u003e flag.txt # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"94d87d7e20a72f3b9093cd8c623461dd98995bf0d3d83a2af6cf81d68b8e5bdb\",\"comment\":\"debuerreotype 0.15\",\"created\":\"2025-01-13T00:00:00Z\",\"container_config\":{\"Cmd\":[\"# debian.sh --arch 'arm64' out/ 'bookworm' '@1736726400'\"]}}"
+      }
+   ],
+   "signatures": [
+      {
+         "header": {
+            "jwk": {
+               "crv": "P-256",
+               "kid": "EYMR:GL3K:SEES:KR6Q:FQV7:W7GO:GJPS:ITID:N33Z:U4XD:BBWP:X2NH",
+               "kty": "EC",
+               "x": "fBjyFQk2-7MvBMhLN1UkuWjajZY0kl9hcwPB7FIw20Q",
+               "y": "hDTHShelufdCikq7mrG_iTSKptZDxukAFy_2IcpQnPc"
+            },
+            "alg": "ES256"
+         },
+         "signature": "mpDvZUXy7D6qiMj0a-uEszkILrS9rQ8Of4v5zG2jZb8xBw4tsdeCKmrIVM34VMLxxM-01ptu6qN5Lh8ovn0sJQ",
+         "protected": "eyJmb3JtYXRMZW5ndGgiOjMwODksImZvcm1hdFRhaWwiOiJDbjAiLCJ0aW1lIjoiMjAyNS0wMi0wOVQxNzo0ODozOFoifQ"
+      }
+   ]
+}
