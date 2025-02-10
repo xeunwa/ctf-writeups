@@ -44,3 +44,9 @@ http://10.10.110.3 [200 OK] Apache[2.4.29], Country[RESERVED][ZZ], HTML5, HTTPSe
     }
 ?>
 ```
+
+# Vulnerabiliities
+- Broken Access Control
+- Command Execution > reverse shell
+- Misconfigured file permissions / binaries
+	- leading to privesc
