@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Item Details - Arcane Auction House</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <!-- Include jQuery and lucide icons -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            <i data-lucide="sword"></i>
+            <span class="magical-glow">The Arcane Auction House</span>
+          </div>
+          <div class="nav-links" id="nav-links">
+            <a href="/">Home</a>
+            {% if user %}
+              <a href="/api/logout">Logout</a>
+              <span class="username">Hello, {{ user.username }}</span>
+            {% else %}
+              <a href="/login">Login</a>
+              <a href="/register">Register</a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+    </header>
+
+  <main class="container">
+    <div id="itemDetail">
+      <!-- Item details will be loaded here dynamically -->
+    </div>
+    <section class="bids-section">
+      <h2 class="magical-glow">Bids</h2>
+      <div class="bid-list" id="bidsList">
+        <!-- Bids will be loaded here dynamically -->
+      </div>
+    </section>
+  </main>
+  <script src="/itemScript.js"></script>
+</body>
+</html>

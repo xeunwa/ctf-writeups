@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <div id="admin-panel" class="rpg-panel">
+    <div class="panel-header">
+      <i class="fa-solid fa-user-shield"></i>
+      <h2 class="panel-title">Admin Panel</h2>
+    </div>
+
+    <!-- Mode: Table List -->
+    <div v-if="mode === 'tables'">
+      <h3>Available Tables</h3>
+      <ul class="table-list" style="margin-left: 14px;">
+        <li v-for="table in tables" @click="viewTable(table.table_name)" style="cursor: pointer;">
+          ${ table.table_name }
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mode: Table Data -->
+    <div v-if="mode === 'results'">
+      <button class="rpg-button" @click="backToTables">Back to Tables</button>
+      <hr>
+      <!-- Error Message -->
+      <div v-if="errorMessage" class="alert alert-danger mt-3">
+        ${ errorMessage }
+      </div>
+      <!-- Results Table -->
+      <div v-if="results.length > 0">
+        <h3>Table Data</h3>
+        <table class="auction-table">
+          <thead>
+            <tr>
+              <th v-for="col in columns">${ col }</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in results">
+              <td v-for="col in columns">${ row[col] }</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-else-if="!errorMessage">
+        <p>No records found.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

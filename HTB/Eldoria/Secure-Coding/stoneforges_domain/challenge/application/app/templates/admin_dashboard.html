@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <header class="text-center mb-16">
+    <div class="flex items-center justify-center gap-4 mb-8">
+      <i data-lucide="shield" class="w-8 h-8" style="color: var(--accent)"></i>
+      <h1 class="text-4xl font-pressStart" style="color: var(--accent)">Admin Dashboard</h1>
+    </div>
+  </header>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-700">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Order ID</th>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">User ID</th>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Date</th>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Total (Gold)</th>
+          <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-gray-900 divide-y divide-gray-700">
+        {% for order in orders %}
+        <tr>
+          <td class="px-6 py-4">{{ order.order_id }}</td>
+          <td class="px-6 py-4">{{ order.user_id }}</td>
+          <td class="px-6 py-4">{{ order.order_date.strftime('%Y-%m-%d') if order.order_date else '' }}</td>
+          <td class="px-6 py-4">
+            {% if order.status == 'pending' %}
+              <span class="text-yellow-500">{{ order.status }}</span>
+            {% elif order.status == 'approved' %}
+              <span class="text-green-500">{{ order.status }}</span>
+            {% elif order.status == 'denied' %}
+              <span class="text-red-500">{{ order.status }}</span>
+            {% else %}
+              {{ order.status }}
+            {% endif %}
+          </td>
+          <td class="px-6 py-4">{{ order.total }}</td>
+          <td class="px-6 py-4">
+            {% if order.status == 'pending' %}
+              <form method="POST" action="{{ url_for('shop.approve_order', order_id=order.order_id) }}" class="inline-block">
+                <button type="submit" class="magical-button text-sm">Approve</button>
+              </form>
+              <form method="POST" action="{{ url_for('shop.deny_order', order_id=order.order_id) }}" class="inline-block ml-2">
+                <button type="submit" class="magical-button text-sm">Deny</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

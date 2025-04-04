@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Arcane Auction House</title>
+  <link rel="stylesheet" href="/styles.css">
+  <!-- Include jQuery from CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            <i data-lucide="sword"></i>
+            <span class="magical-glow">The Arcane Auction House</span>
+          </div>
+          <div class="nav-links" id="nav-links">
+            <a href="/">Home</a>
+            {% if user %}
+              <a href="/api/logout">Logout</a>
+              <span class="username">{{ user.username }}</span>
+            {% else %}
+              <a href="/login">Login</a>
+              <a href="/register">Register</a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+    </header>
+
+
+  <main class="container">
+    <!-- Filter Panel -->
+    <form id="filterForm">
+
+    <section class="filter-panel">
+        <div class="filter-group">
+          <label>Category</label>
+          <select name="category">
+            <option value="">All</option>
+            <option value="Weapons">Weapons</option>
+            <option value="Artifacts">Artifacts</option>
+            <option value="Armor">Armor</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Act</label>
+          <select name="act">
+            <option value="">All</option>
+            <option value="The Awakening">The Awakening</option>
+            <option value="The Eternal Night">The Eternal Night</option>
+            <option value="The Shadow's Rise">The Shadow's Rise</option>
+            <option value="The Dragon's Call">The Dragon's Call</option>
+            <option value="The Final Dawn">The Final Dawn</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Element</label>
+          <select name="element">
+            <option value="">All</option>
+            <option value="Light">Light</option>
+            <option value="Shadow">Shadow</option>
+            <option value="Blood">Blood</option>
+            <option value="Fire">Fire</option>
+            <option value="Earth">Earth</option>
+            <option value="Void">Void</option>
+            <option value="Time">Time</option>
+            <option value="Magic">Magic</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Rarity</label>
+          <select name="rarity">
+            <option value="">All</option>
+            <option value="Common">Common</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Rare">Rare</option>
+            <option value="Epic">Epic</option>
+            <option value="Legendary">Legendary</option>
+            <option value="Mythical">Mythical</option>
+            <option value="Divine">Divine</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Magic Type</label>
+          <select name="magicType">
+            <option value="">All</option>
+            <option value="Elemental">Elemental</option>
+            <option value="Divine">Divine</option>
+            <option value="Necromancy">Necromancy</option>
+            <option value="Illusion">Illusion</option>
+            <option value="Enchantment">Enchantment</option>
+            <option value="Summoning">Summoning</option>
+            <option value="Time Magic">Time Magic</option>
+            <option value="Blood Magic">Blood Magic</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Faction</label>
+          <select name="faction">
+            <option value="">All</option>
+            <option value="Dragon Keepers">Dragon Keepers</option>
+            <option value="Shadow Council">Shadow Council</option>
+            <option value="Light Bringers">Light Bringers</option>
+            <option value="Void Walkers">Void Walkers</option>
+            <option value="Time Weavers">Time Weavers</option>
+            <option value="Storm Lords">Storm Lords</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Origin</label>
+          <select name="origin">
+            <option value="">All</option>
+            <option value="Lands Between">Lands Between</option>
+            <option value="Altus Plateau">Altus Plateau</option>
+            <option value="Caelid">Caelid</option>
+            <option value="Liurnia">Liurnia</option>
+            <option value="Mountaintops of the Giants">Mountaintops of the Giants</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Material</label>
+          <select name="material">
+            <option value="">All</option>
+            <option value="Steel">Steel</option>
+            <option value="Iron">Iron</option>
+            <option value="Dragonbone">Dragonbone</option>
+            <option value="Mystic Alloy">Mystic Alloy</option>
+            <option value="Enchanted Cloth">Enchanted Cloth</option>
+            <option value="Obsidian">Obsidian</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Weight</label>
+          <select name="weight">
+            <option value="">All</option>
+            <option value="Under 5">Under 5</option>
+            <option value="5-10">5-10</option>
+            <option value="Over 10">Over 10</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Level Req.</label>
+          <select name="levelRequirement">
+            <option value="">All</option>
+            <option value="Under 20">Under 20</option>
+            <option value="20-40">20-40</option>
+            <option value="Over 40">Over 40</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <button type="submit" class="btn-primary">Apply Filters</button>
+        </div>
+    </section>
+    </form>
+
+
+    <!-- Items Grid -->
+    <section class="items-grid" id="itemsGrid">
+      <!-- Items will be loaded here dynamically -->
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

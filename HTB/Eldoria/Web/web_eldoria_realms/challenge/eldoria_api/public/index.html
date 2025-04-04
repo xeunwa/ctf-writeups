@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tales from Eldoria</title>
+    <link rel="shortcut icon" href="/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Roboto+Slab&display=swap">
+    <style>
+        @font-face {
+            font-family: MedievalSharp;
+            src: url("/MedievalSharp-Regular.ttf");
+        }
+        
+        @font-face {
+            font-family: Roboto Slab;
+            src: url("/RobotoSlab-Regular.ttf");
+        }
+        
+        :root {
+            --primary: #5c3825;
+            --secondary: #8d6246;
+            --tertiary: #d4a76a;
+            --background: #f9e7c9;
+            --text: #2d1b11;
+            --accent: #a22c29;
+            --success: #446644;
+            --dark-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: var(--background);
+            color: var(--text);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f9e7c9"/><path d="M0 0L100 100M100 0L0 100" stroke="%23d4a76a" stroke-width="0.5"/></svg>');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary);
+            color: var(--tertiary);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%235c3825"/><path d="M20 20L80 80M80 20L20 80" stroke="%238d6246" stroke-width="1"/></svg>');
+        }
+
+        h1, h2, h3 {
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--tertiary);
+            padding-bottom: 5px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .scrollable {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        button, .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            font-family: 'MedievalSharp', cursive;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover, .btn:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #8a1e1b;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #2d4c2d;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .quest-item, .store-item, .inventory-item, .fellowship-item, .live-data-item {
+            background-color: #f9f5ed;
+            border: 1px solid var(--tertiary);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .quest-item h3, .store-item h3, .fellowship-item h3 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .completed {
+            border-left: 5px solid var(--success);
+        }
+
+        .available {
+            border-left: 5px solid var(--accent);
+        }
+
+        .status-block {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .status-completed {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .status-available {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: var(--background);
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--primary);
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        pre {
+            background-color: #f1e8d7;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid var(--tertiary);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
+            overflow-x: auto;
+            padding-bottom: 1px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #e9d8b9;
+            border: 1px solid var(--secondary);
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .tab.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--primary);
+            animation: spin 1s ease infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .attribution {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 30px;
+            color: var(--secondary);
+        }
+
+        /* Parchment effect for messages */
+        .parchment {
+            background-color: #f8e9cc;
+            border: 1px solid #d4a76a;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-style: italic;
+            margin: 20px 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23f8e9cc"/><path d="M0 0L200 200M200 0L0 200" stroke="%23e0cb9d" stroke-width="0.5"/></svg>');
+        }
+
+        .parchment::before, .parchment::after {
+            content: "";
+            position: absolute;
+            height: 15px;
+            width: 100%;
+            left: 0;
+            background-size: 20px 20px;
+        }
+
+        .parchment::before {
+            top: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M0,0 Q5,5 10,0 Q15,5 20,0 L20,0 L0,0" fill="%23f8e9cc" stroke="%23d4a76a" stroke-width="1"/></svg>');
+        }
+
+        .parchment::after {
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M0,20 Q5,15 10,20 Q15,15 20,20 L20,20 L0,20" fill="%23f8e9cc" stroke="%23d4a76a" stroke-width="1"/></svg>');
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tales from Eldoria</h1>
+            <p>A Realm of Adventure and Mystery</p>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="player">Player</div>
+            <div class="tab" data-tab="quests">Quests</div>
+            <div class="tab" data-tab="store">Store</div>
+            <div class="tab" data-tab="fellowship">Fellowship</div>
+            <div class="tab" data-tab="live-data">Live Data</div>
+            <div class="tab" data-tab="advanced">Advanced</div>
+        </div>
+
+        <div class="tab-content active" id="player-tab">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2>Player Status</h2>
+                    <button id="getPlayerStatus">Get Player Status</button>
+                    <div id="playerStatus" class="scrollable"></div>
+                </div>
+                <div class="panel">
+                    <h2>Update Player</h2>
+                    <p>Merge your fate with the realm:</p>
+                    <textarea id="playerJson" rows="10" style="width: 100%; margin-bottom: 10px;" placeholder='{
+  "name": "Your Name", 
+  "age": 25,
+  "attributes": {
+    "class": "Warrior",
+    "guild": "Guardians of the Realm"
+  }
+}'></textarea>
+                    <button id="mergeFates">Merge Fates</button>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Inventory</h2>
+                <div id="inventory" class="scrollable"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="quests-tab">
+            <div class="panel">
+                <h2>Quest Log</h2>
+                <button id="getQuestLog">Refresh Quest Log</button>
+                <div id="questLog" class="scrollable"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="store-tab">
+            <div class="panel">
+                <h2>Eldoria Store</h2>
+                <button id="getStore">Browse Store</button>
+                <div id="storeItems" class="scrollable"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="fellowship-tab">
+            <div class="panel">
+                <h2>Your Fellowship</h2>
+                <button id="getFellowship">View Fellowship</button>
+                <div id="fellowshipMembers" class="scrollable"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="live-data-tab">
+            <div class="panel">
+                <h2>Live Realm Data</h2>
+                <button id="getLiveData">Fetch Live Data</button>
+                <div id="liveDataFeed" class="scrollable"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="advanced-tab">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2>Invoke Helios</h2>
+                    <button id="invokeHelios">Summon Helios</button>
+                    <div id="heliosMessage"></div>
+                </div>
+                <div class="panel">
+                    <h2>Connect to Realm</h2>
+                    <button id="connectRealm">Connect to Eldoria Realm</button>
+                    <div id="realmConnection"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="spinner" id="spinner"></div>
+
+        <div class="attribution">
+            <p>© Eldoria Realms</p>
+        </div>
+    </div>
+
+    <script>
+        // Base URL for API endpoints - change this if your server runs on a different host/port
+        const API_BASE_URL = 'http://localhost:1337';
+
+        // Helper function to show loading spinner
+        function showSpinner() {
+            document.getElementById('spinner').style.display = 'block';
+        }
+
+        // Helper function to hide loading spinner
+        function hideSpinner() {
+            document.getElementById('spinner').style.display = 'none';
+        }
+
+        // Helper function for API calls
+        async function callAPI(endpoint, method = 'GET', body = null) {
+            showSpinner();
+            
+            try {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                
+                if (body) {
+                    options.body = JSON.stringify(body);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                const data = await response.json();
+                
+                hideSpinner();
+                return data;
+            } catch (error) {
+                hideSpinner();
+                console.error('API Error:', error);
+                return { error: error.message };
+            }
+        }
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabName = tab.getAttribute('data-tab');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            });
+        });
+
+        // Player Status
+        document.getElementById('getPlayerStatus').addEventListener('click', async () => {
+            const data = await callAPI('/player-status');
+            
+            if (data.player) {
+                const player = data.player;
+                let html = `
+                    <h3>${player.name}</h3>
+                    <p>Age: ${player.age}</p>
+                    <p>Class: ${player.attributes.class || 'Unknown'}</p>
+                    <p>Guild: ${player.attributes.guild || 'None'}</p>
+                `;
+                
+                if (player.attributes.location) {
+                    html += `
+                        <p>Realm: ${player.attributes.location.realm || 'Unknown'}</p>
+                        <p>Zone: ${player.attributes.location.zone || 'Unknown'}</p>
+                    `;
+                }
+                
+                document.getElementById('playerStatus').innerHTML = html;
+                
+                // Update inventory
+                if (player.attributes.inventory && player.attributes.inventory.length > 0) {
+                    let inventoryHtml = '';
+                    player.attributes.inventory.forEach(item => {
+                        inventoryHtml += `
+                            <div class="inventory-item">
+                                <h3>${item.name}</h3>
+                                <p>Value: ${item.price} gold</p>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('inventory').innerHTML = inventoryHtml;
+                } else {
+                    document.getElementById('inventory').innerHTML = '<p>Your inventory is empty.</p>';
+                }
+            }
+        });
+
+        // Merge Fates
+        document.getElementById('mergeFates').addEventListener('click', async () => {
+            const jsonInput = document.getElementById('playerJson').value;
+            
+            try {
+                const jsonData = JSON.parse(jsonInput);
+                const data = await callAPI('/merge-fates', 'POST', jsonData);
+                
+                if (data.player) {
+                    const player = data.player;
+                    let html = `
+                        <h3>${player.name}</h3>
+                        <p>Age: ${player.age}</p>
+                        <p>Class: ${player.attributes.class || 'Unknown'}</p>
+                        <p>Guild: ${player.attributes.guild || 'None'}</p>
+                    `;
+                    
+                    if (player.attributes.location) {
+                        html += `
+                            <p>Realm: ${player.attributes.location.realm || 'Unknown'}</p>
+                            <p>Zone: ${player.attributes.location.zone || 'Unknown'}</p>
+                        `;
+                    }
+                    
+                    document.getElementById('playerStatus').innerHTML = html;
+                }
+            } catch (error) {
+                alert('Invalid JSON input. Please check your formatting.');
+                console.error('JSON Parse Error:', error);
+            }
+        });
+
+        // Quest Log
+        document.getElementById('getQuestLog').addEventListener('click', async () => {
+            const data = await callAPI('/quest-log');
+            
+            if (data.quests && data.quests.length > 0) {
+                let html = '';
+                data.quests.forEach(quest => {
+                    const statusClass = quest.status === 'completed' ? 'completed' : 'available';
+                    const statusDisplay = quest.status === 'completed' 
+                        ? '<span class="status-block status-completed">Completed</span>' 
+                        : '<span class="status-block status-available">Available</span>';
+                    
+                    html += `
+                        <div class="quest-item ${statusClass}">
+                            <h3>${quest.title} ${statusDisplay}</h3>
+                            <p>${quest.description}</p>
+                            <p><strong>Reward:</strong> ${quest.reward}</p>
+                            ${quest.status !== 'completed' ? 
+                                `<button class="complete-quest-btn btn-success" data-quest-id="${quest.quest_id}">Complete Quest</button>` : 
+                                ''}
+                        </div>
+                    `;
+                });
+                document.getElementById('questLog').innerHTML = html;
+                
+                // Add event listeners for complete quest buttons
+                document.querySelectorAll('.complete-quest-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const questId = parseInt(e.target.getAttribute('data-quest-id'));
+                        const data = await callAPI('/complete-quest', 'POST', { quest_id: questId });
+                        
+                        if (data.status === 'Quest completed') {
+                            // Refresh quest log
+                            document.getElementById('getQuestLog').click();
+                        }
+                    });
+                });
+            } else {
+                document.getElementById('questLog').innerHTML = '<p>No quests available.</p>';
+            }
+        });
+
+        // Store
+        document.getElementById('getStore').addEventListener('click', async () => {
+            const data = await callAPI('/store');
+            
+            if (data.items && data.items.length > 0) {
+                let html = '';
+                data.items.forEach(item => {
+                    html += `
+                        <div class="store-item">
+                            <h3>${item.name}</h3>
+                            <p>Price: ${item.price} gold</p>
+                            <button class="equip-item-btn" data-item-id="${item.item_id}">Purchase & Equip</button>
+                        </div>
+                    `;
+                });
+                document.getElementById('storeItems').innerHTML = html;
+                
+                // Add event listeners for equip item buttons
+                document.querySelectorAll('.equip-item-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const itemId = parseInt(e.target.getAttribute('data-item-id'));
+                        const data = await callAPI('/equip-item', 'POST', { item_id: itemId });
+                        
+                        if (data.inventory) {
+                            // Update inventory display
+                            let inventoryHtml = '';
+                            data.inventory.forEach(item => {
+                                inventoryHtml += `
+                                    <div class="inventory-item">
+                                        <h3>${item.name}</h3>
+                                        <p>Value: ${item.price} gold</p>
+                                    </div>
+                                `;
+                            });
+                            document.getElementById('inventory').innerHTML = inventoryHtml;
+                        }
+                    });
+                });
+            } else {
+                document.getElementById('storeItems').innerHTML = '<p>No items available in store.</p>';
+            }
+        });
+
+        // Fellowship
+        document.getElementById('getFellowship').addEventListener('click', async () => {
+            const data = await callAPI('/fellowship');
+            
+            if (data.party && data.party.length > 0) {
+                let html = '';
+                data.party.forEach(member => {
+                    html += `
+                        <div class="fellowship-item">
+                            <h3>${member.name}</h3>
+                            <p>Class: ${member.class}</p>
+                            <p>Role: ${member.role}</p>
+                        </div>
+                    `;
+                });
+                document.getElementById('fellowshipMembers').innerHTML = html;
+            } else {
+                document.getElementById('fellowshipMembers').innerHTML = '<p>No fellowship members found.</p>';
+            }
+        });
+
+        // Live Data
+        document.getElementById('getLiveData').addEventListener('click', async () => {
+            const data = await callAPI('/live-data');
+            
+            if (data.data && data.data.length > 0) {
+                let html = '';
+                data.data.forEach(item => {
+                    html += `
+                        <div class="live-data-item">
+                            <h3>${item.type}</h3>
+                            <p>${item.message}</p>
+                            <p><small>Timestamp: ${item.timestamp}</small></p>
+                        </div>
+                    `;
+                });
+                document.getElementById('liveDataFeed').innerHTML = html;
+            } else {
+                document.getElementById('liveDataFeed').innerHTML = '<p>No live data available.</p>';
+            }
+        });
+
+        // Invoke Helios
+        document.getElementById('invokeHelios').addEventListener('click', async () => {
+            const data = await callAPI('/invoke-helios');
+            
+            if (data.message) {
+                document.getElementById('heliosMessage').innerHTML = `
+                    <div class="parchment">
+                        <p>${data.message}</p>
+                    </div>
+                `;
+            }
+        });
+
+        // Connect Realm
+        document.getElementById('connectRealm').addEventListener('click', async () => {
+            const data = await callAPI('/connect-realm');
+            
+            if (data.realm_url) {
+                document.getElementById('realmConnection').innerHTML = `
+                    <p>Connected to: ${data.realm_url}</p>
+                    <p>Status: ${data.status}</p>
+                `;
+                
+                if (data.response_body) {
+                    document.getElementById('realmConnection').innerHTML += `
+                        <div class="parchment">
+                            <p>${data.response_body}</p>
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        // Load player status on page load
+        window.addEventListener('load', () => {
+            document.getElementById('getPlayerStatus').click();
+        });
+    </script>
+</body>
+</html>

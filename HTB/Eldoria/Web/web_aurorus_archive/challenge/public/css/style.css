@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  background-color: #1a0f2e;
+  color: #fff;
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: url('/back.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.rpg-panel {
+  border: 4px solid #4a3b6b;
+  background-color: rgba(23, 12, 43, 0.9);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rpg-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #4a3b6b;
+  color: white;
+  border: 2px solid #6a5b8b;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+}
+
+.rpg-button:hover {
+  background-color: #5a4b7b;
+  transform: translateY(-2px);
+}
+
+.rpg-button:active {
+  transform: translateY(1px);
+}
+
+.rpg-button.danger {
+  background-color: #dc2626;
+  border-color: #ef4444;
+}
+
+.rpg-button.danger:hover {
+  background-color: #b91c1c;
+}
+
+.rpg-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #2a1f3f;
+  border: 2px solid #4a3b6b;
+  border-radius: 0.25rem;
+  color: white;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+}
+
+.rpg-input::placeholder {
+  color: #9ca3af;
+}
+
+.rpg-input:focus {
+  outline: none;
+  border-color: #6a5b8b;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.nav-title {
+  font-size: 1.5rem;
+  color: #d8b4fe;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #d8b4fe;
+}
+
+.nav-link.active {
+  color: #d8b4fe;
+}
+
+.title {
+  font-size: 2rem;
+  color: #d8b4fe;
+  margin-bottom: 8px;
+  margin-top:8px;
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.login-panel {
+  max-width: 500px;
+  margin: 5rem auto;
+  text-align: center;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  color: #d8b4fe;
+}
+
+.purple {
+  color: #d8b4fe;
+}
+
+.purple-text {
+  color: #d8b4fe;
+  text-decoration: none;
+}
+
+.purple-text:hover {
+  color: #e9d5ff;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  color: #d8b4fe;
+}
+
+.submissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.submission-item {
+  padding: 0.75rem;
+  background-color: #3a2f4f;
+  border: 1px solid #4a3b6b;
+  border-radius: 0.25rem;
+}
+
+.submission-item h4 {
+  color: #e9d5ff;
+  margin-bottom: 0.25rem;
+}
+
+.submission-item p {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-item {
+  padding: 1rem;
+  background-color: #3a2f4f;
+  border: 1px solid #4a3b6b;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  color: #d8b4fe;
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.submit-panel {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+textarea.rpg-input {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.submit-message {
+  text-align: center;
+  color: #34d399;
+  margin-top: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.logout-panel {
+  max-width: 400px;
+  margin: 5rem auto;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Auction Styles */
+.auction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.auction-table th,
+.auction-table td {
+  border: 1px solid #4a3b6b;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.auction-table th {
+  background-color: #4a3b6b;
+  color: #d8b4fe;
+}
+
+.auction-table tr:nth-child(even) {
+  background-color: #3a2f4f;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #2a1f3f;
+  padding: 2rem;
+  border: 2px solid #4a3b6b;
+  border-radius: 0.5rem;
+  width: 500px;
+  max-width: 90%;
+}
+
+.modal h3 {
+  color: #d8b4fe;
+  margin-bottom: 1rem;
+}
+
+.modal .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal .form-group label {
+  display: block;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.modal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.view-details p {
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+}
+
+.alert {
+  color: red;
+}
+
+/* Button Styles */
+.rpg-button {
+  padding: 0.5rem 1rem;
+  background-color: #4a3b6b;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.rpg-button:hover {
+  background-color: #5a4b7b;
+}
+
+.rpg-button.danger {
+  background-color: #dc2626;
+  border-color: #ef4444;
+}
+
+.rpg-button.danger:hover {
+  background-color: #b91c1c;
+}
+
+.oauth-section {
+  text-align: center;
+}
+.oauth-button {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+}
+.oauth-button:hover {
+  background-color: #5a32a3;
+}
+.oauth-button:disabled {
+  background-color: #a78bfa;
+  cursor: not-allowed;
+}

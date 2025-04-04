@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Pass the auction data as a JSON string via a data attribute -->
+<div id="auction-details-panel" class="rpg-panel" data-auction='{{ auction | dump | safe }}'>
+  <div class="panel-header">
+    <i class="fa-solid fa-gavel"></i>
+    <h2 class="panel-title">Auction Details</h2>
+  </div>
+  <!-- The following parts will be managed by Vue -->
+  <h3>${ auctionData.resourcename }</h3>
+  <p><strong>Auction Started:</strong> ${ auctionData.createdat }</p>
+  <p><strong>Starting Bid:</strong> ${ auctionData.startingbid }</p>
+  <p><strong>Auction Ends:</strong> ${ auctionData.endtime }</p>
+
+  <div v-if="auctionData.bids && auctionData.bids.length > 0">
+    <h4>Bids (latest First)</h4>
+    <table class="auction-table">
+      <thead>
+        <tr>
+          <th>Bidder</th>
+          <th>Amount</th>
+          <th>Placed On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="bid in auctionData.bids" :key="bid.id">
+          <td>${ bid.bidder }</td>
+          <td>${ bid.amount }</td>
+          <td>${ bid.createdat }</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div v-else>
+    <p>No bids yet. Be the first to bid!</p>
+  </div>
+
+  <!-- Place Bid form handled by Vue -->
+  <div class="place-bid">
+    <h4>Place a New Bid</h4>
+    <form @submit.prevent="submitBid">
+      <div class="form-group">
+        <input type="number" class="rpg-input" v-model="bidAmount" placeholder="Enter your bid amount" min="1" required />
+      </div>
+      <button type="submit" class="rpg-button" :disabled="submitting">
+        <span v-if="submitting">Placing Bid...</span>
+        <span v-else>Place Bid</span>
+      </button>
+    </form>
+    <div v-if="errorMessage" class="alert alert-danger mt-3">${ errorMessage }</div>
+    <div v-if="successMessage" class="submit-message mt-3">${ successMessage }</div>
+  </div>
+</div>
+{% endblock %}

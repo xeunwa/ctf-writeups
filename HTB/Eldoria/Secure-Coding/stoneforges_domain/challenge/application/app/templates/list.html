@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}Item List - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <!-- Page Header -->
+  <div class="flex items-center justify-center gap-4 mb-8 fade-in" style="animation-delay: 0.7s">
+    <i data-lucide="list" class="w-8 h-8 text-accent"></i>
+    <h1 class="magical-heading glow-text">Mystical Inventory</h1>
+  </div>
+
+  <!-- Filters -->
+  <div class="magical-card mb-8 fade-in" style="animation-delay: 0.8s">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm font-pressStart text-accent mb-2">Search</label>
+        <input type="text" id="searchInput" placeholder="Search items..." class="magical-input" />
+      </div>
+      <div>
+        <label class="block text-sm font-pressStart text-accent mb-2">Category</label>
+        <select id="categoryFilter" class="magical-input magical-select">
+          <option value="">All Categories</option>
+          <option value="weapon">Weapons</option>
+          <option value="armor">Armor</option>
+          <option value="potion">Potions</option>
+          <option value="scroll">Scrolls</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-pressStart text-accent mb-2">Sort By</label>
+        <select id="sortBy" class="magical-input magical-select">
+          <option value="name">Name</option>
+          <option value="price-asc">Price (Low to High)</option>
+          <option value="price-desc">Price (High to Low)</option>
+          <option value="stock">Stock</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Items Grid -->
+  <div id="itemsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for item in items %}
+    <div class="magical-card fade-in" style="animation-delay: {{ loop.index0 * 0.1 + 0.8 }}s" onclick='showPurchaseModal({{ item|tojson }})'>
+      <div class="relative h-48 mb-4 overflow-hidden rounded">
+        <img src="{{ url_for('static', filename='images/' ~ (item.image if item.image else 'placeholder.jpg')) }}"
+             alt="{{ item.name }}"
+             class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-transparent to-transparent"></div>
+      </div>
+      <h3 class="font-pressStart text-sm mb-2 text-accent flex items-center gap-2">
+        {{ item.name }}
+        <i data-lucide="sparkle" class="inline-block h-4 w-4"></i>
+      </h3>
+      <p class="text-sm text-text mb-4 font-cormorant">{{ item.description }}</p>
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-pressStart text-accent">{{ item.price }} Gold</span>
+        <span class="text-xs font-pressStart text-text">Stock: {{ item.stock }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Purchase Modal -->
+<div id="purchaseModal" class="modal">
+  <div class="modal-content magical-card">
+    <div id="modalContent">
+      <!-- Modal content will be loaded dynamically -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // For client-side filtering/sorting, also make the full items array available
+  const itemsData = {{ items|tojson }};
+  let filteredItems = [...itemsData];
+
+  const searchInput = document.getElementById('searchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const sortBy = document.getElementById('sortBy');
+
+  function renderItems(items) {
+    const grid = document.getElementById('itemsGrid');
+    grid.innerHTML = '';
+    items.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'magical-card fade-in';
+      div.style.animationDelay = `${0.8 + idx * 0.1}s`;
+      div.innerHTML = `
+        <div class="relative h-48 mb-4 overflow-hidden rounded">
+          <img src="${item.image ? "{{ url_for('static', filename='images/') }}" + item.image : "{{ url_for('static', filename='images/placeholder.jpg') }}"}"
+               alt="${item.name}"
+               class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-transparent to-transparent"></div>
+        </div>
+        <h3 class="font-pressStart text-sm mb-2 text-accent flex items-center gap-2">
+          ${item.name}
+          <i data-lucide="sparkle" class="inline-block h-4 w-4"></i>
+        </h3>
+        <p class="text-sm text-text mb-4 font-cormorant">${item.description}</p>
+        <div class="flex justify-between items-center">
+          <span class="text-sm font-pressStart text-accent">${item.price} Gold</span>
+          <span class="text-xs font-pressStart text-text">Stock: ${item.stock}</span>
+        </div>
+      `;
+      div.addEventListener('click', () => showPurchaseModal(item));
+      grid.appendChild(div);
+    });
+    lucide.createIcons();
+  }
+
+  function filterAndSortItems() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const category = categoryFilter.value;
+    const sortOption = sortBy.value;
+
+    filteredItems = itemsData.filter(item => {
+      const matchesSearch = item.name.toLowerCase().includes(searchTerm) || item.description.toLowerCase().includes(searchTerm);
+      const matchesCategory = !category || item.category === category;
+      return matchesSearch && matchesCategory;
+    });
+
+    filteredItems.sort((a, b) => {
+      switch (sortOption) {
+        case 'name': return a.name.localeCompare(b.name);
+        case 'price-asc': return a.price - b.price;
+        case 'price-desc': return b.price - a.price;
+        case 'stock': return b.stock - a.stock;
+        default: return 0;
+      }
+    });
+    renderItems(filteredItems);
+  }
+
+  searchInput.addEventListener('input', filterAndSortItems);
+  categoryFilter.addEventListener('change', filterAndSortItems);
+  sortBy.addEventListener('change', filterAndSortItems);
+
+  // Purchase Modal Functions
+  const modal = document.getElementById('purchaseModal');
+  const modalContent = document.getElementById('modalContent');
+
+  function showPurchaseModal(item) {
+    modalContent.innerHTML = `
+      <img src="${item.image ? "{{ url_for('static', filename='images/') }}" + item.image : "{{ url_for('static', filename='images/placeholder.jpg') }}"}"
+           alt="${item.name}"
+           class="w-full h-64 object-cover rounded mb-4">
+      <h3 class="font-pressStart text-lg mb-4 text-accent">${item.name}</h3>
+      <p class="text-text mb-4">${item.description}</p>
+      <div class="flex items-center gap-4 mb-4">
+        <label class="form-label">Quantity:</label>
+        <input type="number" min="1" max="${item.stock}" value="1" class="magical-input w-20" id="quantityInput">
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-pressStart text-sm text-accent">Total: <span id="totalPrice">${item.price}</span> Gold</span>
+        <div class="flex gap-2">
+          <button class="magical-button" onclick="handlePurchase(${item.item_id})">Purchase</button>
+          <button class="magical-button" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    `;
+    const quantityInput = document.getElementById('quantityInput');
+    const totalPrice = document.getElementById('totalPrice');
+    quantityInput.addEventListener('input', () => {
+      const quantity = Math.min(item.stock, Math.max(1, parseInt(quantityInput.value) || 1));
+      quantityInput.value = quantity;
+      totalPrice.textContent = quantity * item.price;
+    });
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  async function handlePurchase(itemId) {
+    const quantity = parseInt(document.getElementById('quantityInput').value);
+    try {
+      const formData = new FormData();
+      formData.append('quantity', quantity.toString());
+      const response = await fetch(`/buy/${itemId}`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        Toastify({
+          text: errorMessage || 'Purchase failed',
+          className: 'error',
+          style: {
+            background: 'linear-gradient(to right, #ff416c, #ff4b2b)'
+          }
+        }).showToast();
+      } else {
+        Toastify({
+          text: 'Purchase successful!',
+          className: 'info',
+          style: {
+            background: 'linear-gradient(to right, #00b09b, #96c93d)'
+          }
+        }).showToast();
+        closeModal();
+        setTimeout(() => window.location.reload(), 1500);
+      }
+      
+    } catch (error) {
+      Toastify({
+        text: error.message,
+        className: "error",
+        style: {
+          background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+        }
+      }).showToast();
+    }
+  }
+</script>
+{% endblock %}

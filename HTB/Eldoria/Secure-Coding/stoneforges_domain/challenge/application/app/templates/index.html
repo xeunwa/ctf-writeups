@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Home - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="min-h-screen p-8">
+  <!-- Hero Section -->
+  <header class="text-center mb-16">
+    <h1 class="text-5xl font-pressStart" style="color: var(--accent)">ForgeMaster's Sanctum</h1>
+    <p class="mt-4 text-xl max-w-3xl mx-auto">
+      Step into a realm where ancient magic meets masterful craftsmanship. Here, in Garrick Stoneforge's mystical workshop, legendary artifacts await those deemed worthy.
+    </p>
+  </header>
+  <!-- Featured Items -->
+  <section>
+    <h2 class="text-3xl font-pressStart mb-8" style="color: var(--accent)">Featured Artifacts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for item in items %}
+      <div class="magical-card cursor-pointer" onclick="window.location.href='{{ url_for('shop.list_items') }}'">
+        <div class="relative h-48 mb-4 overflow-hidden rounded">
+          <img src="{{ url_for('static', filename='images/' ~ (item.image if item.image else 'placeholder.jpg')) }}" alt="{{ item.name }}" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-transparent to-transparent"></div>
+        </div>
+        <h3 class="text-xl font-pressStart mb-2" style="color: var(--accent)">
+          {{ item.name }}
+          <i data-lucide="sparkle" class="inline-block h-4 w-4"></i>
+        </h3>
+        <p class="text-sm mb-4">{{ item.description }}</p>
+        <div class="flex justify-between items-center">
+          <span class="text-lg font-pressStart" style="color: var(--accent)">{{ item.price }} Gold</span>
+          <span class="text-sm">Stock: {{ item.stock }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

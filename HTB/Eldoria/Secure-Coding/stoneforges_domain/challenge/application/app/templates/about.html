@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}About - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="min-h-screen p-8">
+  <header class="text-center mb-16">
+    <div class="flex items-center justify-center gap-4 mb-8">
+      <i data-lucide="book" class="w-8 h-8" style="color: var(--accent)"></i>
+      <h1 class="text-4xl font-pressStart" style="color: var(--accent)">About ForgeMaster's Sanctum</h1>
+    </div>
+    <p class="text-xl max-w-3xl mx-auto">
+      Deep within the mystical realms, ForgeMaster's Sanctum stands as a beacon for adventurers seeking the finest magical artifacts and enchanted items.
+    </p>
+  </header>
+  <div class="max-w-4xl mx-auto">
+        <div class="magical-card mb-8 fade-in" style="animation-delay: 0.8s">
+          <div class="flex items-center gap-4 mb-4">
+            <i data-lucide="sparkles" class="w-6 h-6 text-accent"></i>
+            <h2 class="text-xl font-cinzel text-accent">Our Legacy</h2>
+          </div>
+          <p class="text-text font-cormorant text-lg leading-relaxed">
+            For centuries, the ForgeMaster's family has crafted legendary artifacts
+            for heroes and mages alike. Each item in our collection is imbued with
+            powerful enchantments and crafted with the utmost care and precision.
+          </p>
+        </div>
+
+        <div class="magical-card fade-in" style="animation-delay: 0.9s">
+          <div class="flex items-center gap-4 mb-4">
+            <i data-lucide="scroll" class="w-6 h-6 text-accent"></i>
+            <h2 class="text-xl font-cinzel text-accent">Our Promise</h2>
+          </div>
+          <p class="text-text font-cormorant text-lg leading-relaxed">
+            Every artifact that leaves our sanctum carries with it a piece of ancient
+            magic and our solemn oath of quality. We stand behind our craftsmanship
+            and ensure that each item meets the highest standards of magical excellence.
+          </p>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

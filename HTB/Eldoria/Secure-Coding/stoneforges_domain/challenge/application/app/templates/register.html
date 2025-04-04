@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Register - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="magical-card w-full max-w-md p-8">
+    <h2 class="text-xl font-pressStart mb-8" style="color: var(--accent)">New Quest</h2>
+    {% if error %}
+      <p class="text-red-500 mb-4">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="{{ url_for('shop.register') }}" id="registerForm">
+      <div class="mb-4">
+        <label class="block text-sm font-pressStart mb-1" style="color: var(--accent)">
+          <i data-lucide="user" class="h-4 w-4"></i>
+          Hero Name
+        </label>
+        <input type="text" name="username" class="magical-input w-full" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-pressStart mb-1" style="color: var(--accent)">
+          <i data-lucide="mail" class="h-4 w-4"></i>
+          Magic Scroll (Email)
+        </label>
+        <input type="email" name="email" class="magical-input w-full" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-pressStart mb-1" style="color: var(--accent)">
+          <i data-lucide="key-round" class="h-4 w-4"></i>
+          Secret Code
+        </label>
+        <input type="password" name="password" class="magical-input w-full" required>
+      </div>
+      <button type="submit" class="magical-button w-full">Begin Quest</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

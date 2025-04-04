@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="rpg-panel" id="my_bids">
+  <div class="panel-header">
+    <i class="fa-solid fa-money-check-alt"></i>
+    <h2 class="panel-title">My Bids</h2>
+  </div>
+  {% if bids and bids.length > 0 %}
+    <table class="auction-table">
+      <thead>
+        <tr>
+          <th>Resource Name</th>
+          <th>Bidder</th>
+          <th>Bid Amount</th>
+          <th>Placed On</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for bid in bids %}
+        <tr>
+          <td>{{ bid.resourcename }}</td>
+          <td>{{ bid.bidder }}</td>
+          <td>{{ bid.amount }}</td>
+          <td>{{ bid.createdat }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You have not placed any bids yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

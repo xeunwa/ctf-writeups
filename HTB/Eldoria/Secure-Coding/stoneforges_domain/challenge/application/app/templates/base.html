@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}ForgeMaster's Sanctum{% endblock %}</title>
+
+        <!-- Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant:wght@400;500;600;700&family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+
+        <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+        <!-- Libraries -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/framer-motion@latest/dist/framer-motion.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            medievalsharp: ["MedievalSharp", "cursive"],
+                            cinzel: ["Cinzel Decorative", "cursive"],
+                            cormorant: ["Cormorant", "serif"],
+                            pressStart: ['"Press Start 2P"', "cursive"],
+                        },
+                    },
+                },
+            };
+        </script>
+
+        </style>
+    </head>
+    <body>
+        <!-- Background Sparkles -->
+        <div id="background-sparkles"></div>
+
+        <!-- Navigation -->
+        <nav
+            class="bg-[#2a1810]/50 backdrop-blur-md border-b border-[#8b4513]/30"
+        >
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <a
+                        href="{{ url_for('shop.index') }}"
+                        class="flex items-center space-x-2"
+                    >
+                        <i
+                            data-lucide="scroll"
+                            class="h-8 w-8"
+                            style="color: var(--accent)"
+                        ></i>
+                        <span
+                            class="text-xl font-pressStart"
+                            style="color: var(--accent)"
+                            >ForgeMaster</span
+                        >
+                    </a>
+                    <div class="flex items-center space-x-4">
+                        <a href="{{ url_for('shop.about') }}" class="nav-link"
+                            >About</a
+                        >
+                        <a
+                            href="{{ url_for('shop.list_items') }}"
+                            class="nav-link"
+                            >Shop</a
+                        >
+                        {% if current_user.is_authenticated %}
+                        <a
+                            href="{{ url_for('shop.user_dashboard') }}"
+                            class="nav-link"
+                            >Stats</a
+                        >
+                        {% if current_user.role == 'admin' %}
+                        <a
+                            href="{{ url_for('shop.admin_dashboard') }}"
+                            class="nav-link"
+                            >Admin</a
+                        >
+                        {% endif %}
+                        <a href="{{ url_for('shop.logout') }}" class="nav-link"
+                            >Logout</a
+                        >
+                        {% else %}
+                        <a href="{{ url_for('shop.login') }}" class="nav-link"
+                            >Login</a
+                        >
+                        <a
+                            href="{{ url_for('shop.register') }}"
+                            class="magical-button"
+                            >Register</a
+                        >
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main>{% block content %}{% endblock %}</main>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center border-t border-[#8b4513]/30 pt-8">
+            <p class="text-sm">
+                <i
+                    data-lucide="scroll"
+                    class="inline-block w-5 h-5 mr-2"
+                    style="color: var(--accent)"
+                ></i>
+                &copy; {{ current_year }} ForgeMaster. All rights reserved.
+            </p>
+        </footer>
+
+        <script>
+            // Initialize Lucide icons and create background sparkles
+            lucide.createIcons();
+            function createSparkles() {
+                  const container = document.getElementById('background-sparkles');
+                  const sparkleCount = 20;
+
+                  for (let i = 0; i < sparkleCount; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'background-sparkle';
+                    sparkle.innerHTML = `<i data-lucide="sparkle" class="w-6 h-6" style="color: var(--accent)"></i>`;
+
+                    // Random position
+                    sparkle.style.left = `${Math.random() * 100}vw`;
+                    sparkle.style.top = `${Math.random() * 100}vh`;
+
+                    // Random animation
+                    const duration = 3 + Math.random() * 4;
+                    sparkle.style.animation = `float ${duration}s ease-in-out infinite`;
+                    sparkle.style.animationDelay = `${Math.random() * 2}s`;
+
+                    container.appendChild(sparkle);
+                  }
+            }
+
+            createSparkles();
+            lucide.createIcons();
+        </script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

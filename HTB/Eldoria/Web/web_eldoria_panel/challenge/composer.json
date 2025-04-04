@@ -1,0 +1,12 @@
+{
+    "name": "eldoria/eldoria",
+    "description": "A PHP Slim-based web app where heroes unite to reclaim a mystical artifact and battle the dark ambitions of Lord Malakar.",
+    "type": "project",
+    "require": {
+        "chrome-php/chrome": "^1.2",
+        "slim/slim": "^4.10",
+        "slim/psr7": "^1.5",
+        "php-di/php-di": "^6.3",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}

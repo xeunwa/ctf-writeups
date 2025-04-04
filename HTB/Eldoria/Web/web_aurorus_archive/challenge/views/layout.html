@@ -1,0 +1,67 @@
+<!-- views/layout.html (Nunjucks template) -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ title }}</title>
+        <!-- Font Awesome for Icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+    <body>
+        {% if username %}
+        <nav class="rpg-panel">
+          <div class="nav-container">
+            <h1 class="nav-title">Aurorus' Archive</h1>
+            <div class="nav-links">
+              <a href="/" class="nav-link">
+                  <i class="fa-solid fa-house"></i>
+                  Home
+              </a>
+              <a href="/my-submissions" class="nav-link">
+                  <i class="fa-solid fa-file-alt"></i>
+                  My Submissions
+              </a>
+              <a href="/my-bids" class="nav-link">
+                  <i class="fa-solid fa-money-check-alt"></i>
+                  My Bids
+              </a>
+              <a href="/submit" class="nav-link">
+                  <i class="fa-solid fa-gavel"></i>
+                  Submit Resource
+              </a>
+              {% if username == "admin" %}
+              <a href="/admin" class="nav-link">
+                  <i class="fa-solid fa-user-shield"></i>
+                  Admin Panel
+              </a>
+              {% endif %}
+              <a href="/logout" class="nav-link danger">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  Logout
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        {% endif %}
+
+        <div id="app">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Main JS -->
+        <script src="/js/main.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

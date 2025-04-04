@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="my-submissions-app" class="rpg-panel">
+  <div class="panel-header">
+    <i class="fa-solid fa-file-alt"></i>
+    <h2 class="panel-title">My Submissions</h2>
+  </div>
+  <!-- Pass submissions data as a JSON string -->
+  <div id="submissions-data" data-submissions='{{ submissions | dump | safe }}'></div>
+  <table class="auction-table" v-if="submissions.length > 0">
+    <thead>
+      <tr>
+        <th @click="sortBy('name')">Name</th>
+        <th @click="sortBy('category')">Category</th>
+        <th @click="sortBy('approved')">Approved?</th>
+        <th @click="sortBy('createdat')">Submitted On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="sub in sortedSubmissions" :key="sub.id">
+        <td>${ sub.name }</td>
+        <td>${ sub.category }</td>
+        <td>
+          <span v-if="sub.approved">Yes</span>
+          <span v-else>No</span>
+        </td>
+        <td>${ sub.createdat }</td>
+      </tr>
+    </tbody>
+  </table>
+  <p v-else>You have not submitted any resources yet.</p>
+</div>
+{% endblock %}

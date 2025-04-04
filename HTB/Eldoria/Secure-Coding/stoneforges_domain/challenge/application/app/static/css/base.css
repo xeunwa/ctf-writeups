@@ -1,0 +1,206 @@
+/* Variables */
+label {
+    display: flex !important;
+}
+
+svg {
+    margin-right: 4px !important;
+}
+:root {
+    --primary: #2a1810;
+    --secondary: #8b4513;
+    --accent: #ffd700;
+    --background: #1a0f0a;
+    --text: #d4b483;
+}
+
+.min-h-screen {
+    min-height: 80vh !important;
+}
+
+/* Global Styles */
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: "Cormorant", serif;
+    background-image:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(139, 69, 19, 0.1) 0%,
+            transparent 80%
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 215, 0, 0.05) 0%,
+            transparent 50%
+        );
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Background Sparkles */
+.background-sparkle {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.1;
+    transition: opacity 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.slide-in {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.8s ease-out forwards;
+}
+
+@keyframes glowPulse {
+    0%,
+    100% {
+        text-shadow:
+            0 0 10px rgba(255, 215, 0, 0.5),
+            0 0 20px rgba(255, 215, 0, 0.3);
+    }
+    50% {
+        text-shadow:
+            0 0 15px rgba(255, 215, 0, 0.7),
+            0 0 25px rgba(255, 215, 0, 0.5);
+    }
+}
+.glow-text {
+    animation: glowPulse 2s infinite;
+}
+
+/* Magical Card */
+.magical-card {
+    background: linear-gradient(to bottom right, #2a1810, #1a0f0a);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px solid rgba(139, 69, 19, 0.3);
+    box-shadow:
+        0 0 20px rgba(139, 69, 19, 0.2),
+        inset 0 0 20px rgba(139, 69, 19, 0.1);
+}
+.magical-card:hover {
+    transform: scale(1.02);
+}
+
+/* Magical Heading */
+.magical-heading {
+    font-family: "Press Start 2P", cursive;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Navigation Links */
+.nav-link {
+    color: var(--accent);
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.875rem;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.nav-link:hover {
+    color: rgba(255, 215, 0, 0.8);
+}
+
+/* Magical Button */
+.magical-button {
+    background-color: var(--secondary);
+    color: var(--accent);
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    cursor: pointer;
+}
+.magical-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(139, 69, 19, 0.3);
+}
+.magical-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Magical Input */
+.magical-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: rgba(42, 24, 16, 0.8);
+    border: 2px solid rgba(139, 69, 19, 0.3);
+    border-radius: 0.375rem;
+    color: var(--accent);
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.875rem;
+    transition: all 0.3s;
+}
+.magical-input:focus {
+    outline: none;
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+}
+
+/* Magical Select */
+.magical-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffd700'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 50;
+    padding: 1rem;
+}
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+.modal-content {
+    width: 100%;
+    max-width: 32rem;
+    animation: slideIn 0.3s ease-out;
+}

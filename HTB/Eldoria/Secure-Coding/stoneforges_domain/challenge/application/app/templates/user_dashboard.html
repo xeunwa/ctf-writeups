@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - ForgeMaster's Sanctum{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <header class="text-center mb-16">
+    <div class="flex items-center justify-center gap-4 mb-8">
+      <i data-lucide="user" class="w-8 h-8" style="color: var(--accent)"></i>
+      <h1 class="text-4xl font-pressStart" style="color: var(--accent)">Your Mystical Collection</h1>
+    </div>
+  </header>
+  <div class="magical-card">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-700">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Order ID</th>
+            <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Items</th>
+            <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Status</th>
+            <th class="px-6 py-3 text-left text-xs font-pressStart uppercase" style="color: var(--accent)">Total</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-900 divide-y divide-gray-700">
+          {% for order in orders %}
+          <tr>
+            <td class="px-6 py-4">{{ order.order_id }}</td>
+            <td class="px-6 py-4">
+              {% for item in order.order_items %}
+                {{ item.quantity }}x {{ item.item.name }}<br>
+              {% endfor %}
+            </td>
+            <td class="px-6 py-4">{{ order.order_date.strftime('%Y-%m-%d') if order.order_date else '' }}</td>
+            <td class="px-6 py-4">
+              {% if order.status == 'pending' %}
+                <span class="text-yellow-500">{{ order.status }}</span>
+              {% elif order.status == 'approved' %}
+                <span class="text-green-500">{{ order.status }}</span>
+              {% elif order.status == 'denied' %}
+                <span class="text-red-500">{{ order.status }}</span>
+              {% else %}
+                {{ order.status }}
+              {% endif %}
+            </td>
+            <td class="px-6 py-4">{{ order.total }} Gold</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if orders|length == 0 %}
+      <div class="text-center py-8">
+        <p class="text-sm">No orders yet. Visit the shop to begin your collection!</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
