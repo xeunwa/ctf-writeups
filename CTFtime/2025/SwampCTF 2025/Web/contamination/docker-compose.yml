@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - backend_net
+    env_file:
+      - ./backend/.env 
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    ports:
+      - "0.0.0.0:8080:8080"
+    depends_on:
+      - backend
+    networks:
+      - frontend_net
+      - backend_net
+
+networks:
+  frontend_net:
+  backend_net:
