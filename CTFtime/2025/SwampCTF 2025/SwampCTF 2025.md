@@ -9,6 +9,7 @@ tags:
 # Web
 ## Contamination
 #server-side-parameter-pollution #ruby #python #json
+
 I have created a safe reverse proxy that only forwards requests to retrieve debug information from the backend. What could go wrong?
 
 [http://chals.swampctf.com:41234](http://chals.swampctf.com:41234)
@@ -45,6 +46,7 @@ References:
 
 ## Maybe Happy Ending
 #whitebox #code-injection/node #LLM #ai-jailbreak  
+
 Welcome to MaybeHappyEndingGPT! In this cyberpunk musical's universe, robots and AI coexist with humans in Seoul circa 2050. You'll be working with Hwaboon, a plant-care robot assistant who brings warmth and nurturing wisdom to the digital age.
 
 [http://chals.swampctf.com:50207](http://chals.swampctf.com:50207)
@@ -88,6 +90,7 @@ require('fs').readFileSync('flag.txt').toString();
 
 ## Editor
 #whitebox #xss #iframe 
+
 I took a few hours to create a simple HTML/CSS previewer system. Since there's no way to add JavaScript then my server should be safe, right?
 
 Grab the flag from the `http://chals.swampctf.com:47821/flag.txt` file on the server to show that this isn't the case.
@@ -125,10 +128,23 @@ Saw iframes being used and tried leaking using it
 
 Apparently the intended way is to use e CSS `@import url()`
 
+writeups from other players
+```css
+  @font-face {
+    font-family: 'flag';
+    src: url('http://chals.swampctf.com:47821/flag.txt');
+  }
+  body {
+    font-family: 'flag', sans-serif;
+    content: "Flag is being loaded as a font (check server logs)";
+  }
+```
+
 ![](_attachments/Pasted%20image%2020250330052757.png)
 
 ## SwampTech Solutions
 #blackbox #view-src #IDOR #XXE
+
 My internship is ending. My final challenge? Defeat Albert in a Capture the Flag challenge. He doesn't have fingers. He doesn't need them. I have never been more afraid.
 
 Wish me luck.

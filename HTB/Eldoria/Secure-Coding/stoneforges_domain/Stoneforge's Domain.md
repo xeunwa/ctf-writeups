@@ -33,8 +33,6 @@ location /static {
 ```
 ## Fix 
 
-
-
 ```nginx.conf
 location /static/ {
     root /www/application/app;
