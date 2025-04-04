@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles/adminpage.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, Admin!</p>
+
+        <!-- This is for our intern, he doesn't know how to look through directories in linux -->
+        <!-- Thankfully he won't be with us much longer -->
+        <h2>Check if a File Exists</h2> 
+        <form method="POST" action="check_file.php">
+            <input type="text" name="filename" placeholder="Enter file name" required>
+            <button type="submit">Check File</button>
+        </form>
+
+        
+<h2>API Actions</h2>
+<form id="apiForm" method="POST" action="api.php">
+    <input type="text" id="userInput" name="userInput" placeholder="User ID" required>
+    <input type="text" id="actionInput" name="actionInput" placeholder="Action" required>
+    <button type="submit" id="getLogsButton">Fetch User Logs</button>
+    <button type="submit" id="updateStatusButton">Update User Status</button>
+</form>
+        <div id="formContainer">
+            <!-- <form id="&#120;&#109;&#108;Form" action="&#112;&#114;&#111;&#99;&#101;&#115;&#115;.php" method="&#80;&#79;&#83;&#84;"> -->
+            <form id="&#120;&#109;&#108;Form" action="http://chals.swampctf.com:49367/process.php" method="&#80;&#79;&#83;&#84;">
+    <br><h2>&#x50;&#x6c;&#x65;&#x61;&#x73;&#x65;&#x20;&#x63;&#x68;&#x65;&#x63;&#x6b;&#x20;&#x69;&#x6e;&#x20;&#x62;&#x65;&#x6c;&#x6f;&#x77;&#x20;&#x65;&#x76;&#x65;&#x72;&#x79;&#x20;&#x32;&#x20;&#x68;&#x6f;&#x75;&#x72;&#x73;&#x20;&#x73;&#x6f;&#x20;&#x49;&#x20;&#x6b;&#x6e;&#x6f;&#x77;&#x20;&#x79;&#x6f;&#x75;&#x27;&#x72;&#x65;&#x20;&#x64;&#x6f;&#x69;&#x6e;&#x67;&#x20;&#x79;&#x6f;&#x75;&#x72;&#x20;&#x6a;&#x6f;&#x62;</h2>
+    <p><i>&#67;&#111;&#110;&#115;&#105;&#100;&#101;&#114; &#102;&#105;&#110;&#100;&#105;&#110;&#103; &#116;&#104;&#101; &#110;&#101;&#119; &#108;&#111;&#99;&#97;&#116;&#105;&#111;&#110; &#111;&#102; &#116;&#104;&#105;&#115; &#102;&#111;&#114;&#109; &#101;&#118;&#101;&#114;&#121; &#119;&#101;&#101;&#107; &#97; &#116;&#101;&#115;&#116; &#111;&#102; &#121;&#111;&#117;&#114; &#99;&#111;&#109;&#109;&#105;&#116;&#109;&#101;&#110;&#116;.</i></p><br>
+    <label for="nameInput"><h3>&#78;&#97;&#109;&#101; &#40;&#70;&#105;&#114;&#115;&#116; &#76;&#97;&#115;&#116;&#41;:</h3></label>
+    <input type="text" id="nameInput"><br><br>
+
+    <label for="emailInput"><h3>&#69;&#109;&#97;&#105;&#108; &#40;&#89;&#111;&#117;&#114; &#83;&#119;&#97;&#109;&#112;&#116;&#101;&#99;&#104; &#99;&#111;&#109;&#112;&#97;&#110;&#121; &#101;&#109;&#97;&#105;&#108;&#41;:</h3></label>
+    <input type="text" id="emailInput"><br><br>
+
+    <input type="hidden" id="submitdataInput" name="submitdata">
+    <button type="submit">&#83;&#117;&#98;&#109;&#105;&#116;</button>
+</form>
+
+<script>
+const _0x457886=_0x5449;function _0x5449(_0x5e77bc,_0x53436c){const _0x264509=_0x230a();return _0x5449=function(_0x4d3b94,_0x1caa75){_0x4d3b94=_0x4d3b94-(-0xce5+0x1*0x26cb+-0x821*0x3);let _0x211635=_0x264509[_0x4d3b94];return _0x211635;},_0x5449(_0x5e77bc,_0x53436c);}(function(_0x40ad7e,_0x4eb182){const _0x21d526=_0x5449,_0x48ecfe=_0x40ad7e();while(!![]){try{const _0x400dda=parseInt(_0x21d526(0x19a))/(0x1f*-0x3f+-0xd31+-0x14d3*-0x1)*(parseInt(_0x21d526(0x184))/(-0x1467+-0x8c5*0x2+0x1*0x25f3))+parseInt(_0x21d526(0x188))/(0x21d7+-0x1b8c+-0x324*0x2)*(-parseInt(_0x21d526(0x194))/(-0x5*-0x53a+0xae5*-0x2+-0x115*0x4))+-parseInt(_0x21d526(0x19c))/(0x2*0x564+-0x7be+-0x305)+parseInt(_0x21d526(0x197))/(0x1*-0x185b+-0x2*0xfbc+0x37d9)+parseInt(_0x21d526(0x196))/(-0x1*0x25cf+0x889*0x3+0x1f*0x65)*(-parseInt(_0x21d526(0x18d))/(0x1cc2+-0x2*-0x135a+-0x436e))+-parseInt(_0x21d526(0x19b))/(-0x1*-0x2164+-0x158b+-0xbd0)+parseInt(_0x21d526(0x18c))/(-0x21ea+0x1713+0xae1);if(_0x400dda===_0x4eb182)break;else _0x48ecfe['push'](_0x48ecfe['shift']());}catch(_0x467099){_0x48ecfe['push'](_0x48ecfe['shift']());}}}(_0x230a,0xdf14a+-0xc*-0x19505+0x2*-0x90581),document[_0x457886(0x193)+_0x457886(0x18a)](_0x457886(0x187))[_0x457886(0x192)+_0x457886(0x190)](_0x457886(0x189),function(_0x2c2e32){const _0x5752fb=_0x457886,_0x27431a={'SVHPC':_0x5752fb(0x19e),'BcSrP':_0x5752fb(0x191),'ztzto':_0x5752fb(0x1a0)+_0x5752fb(0x18b)};let _0x280be6=document[_0x5752fb(0x193)+_0x5752fb(0x18a)](_0x27431a[_0x5752fb(0x186)])[_0x5752fb(0x199)],_0x5c6cc6=document[_0x5752fb(0x193)+_0x5752fb(0x18a)](_0x27431a[_0x5752fb(0x18f)])[_0x5752fb(0x199)],_0x4c14fc=_0x5752fb(0x198)+_0x5752fb(0x19f)+_0x280be6+(_0x5752fb(0x195)+_0x5752fb(0x183))+_0x5c6cc6+(_0x5752fb(0x185)+_0x5752fb(0x18e));document[_0x5752fb(0x193)+_0x5752fb(0x18a)](_0x27431a[_0x5752fb(0x19d)])[_0x5752fb(0x199)]=_0x4c14fc;}));
+function _0x230a(){const _0x1db7a4=['215644nfdbCm','</name>\x0a\x20\x20','439789TDKvtj','110262skVRnA','<root>\x0a\x20\x20\x20','value','1261373dQnbYi','7518690hquAEF','2161760yhNmOm','ztzto','nameInput','\x20<name>','submitdata','\x20\x20<email>','2TvAobf','</email>\x0a<','SVHPC','xmlForm','81VsftVd','submit','ById','Input','36128140QxzSCG','152sTHyTw','/root>','BcSrP','stener','emailInput','addEventLi','getElement'];_0x230a=function(){return _0x1db7a4;};return _0x230a();}
+</script>        </div>
+
+
+    </div>
+    <script>
+// Adding a submit event listener to the form
+document.getElementById("apiForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let userInput = document.getElementById('userInput').value;
+    let actionInput = document.getElementById('actionInput').value;
+    let actionType = event.submitter.id;
+
+    // Prepare form data to be sent
+    let formData = new URLSearchParams({ userInput, actionInput });
+
+    if (actionType === "getLogsButton") {
+        fetch('api.php', { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success
+                console.log("System Logs:", data);
+                document.getElementById('userInput').value = '';
+                document.getElementById('actionInput').value = '';
+            })
+            .catch(error => console.error("Error fetching system logs:", error));
+    } else if (actionType === "updateStatusButton") {
+        fetch('api.php', { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success
+                console.log("User Status Updated:", data);
+                document.getElementById('userInput').value = '';
+                document.getElementById('actionInput').value = '';
+            })
+            .catch(error => console.error("Error updating user status:", error));
+    }
+});
+
+</script>
+</body>
+</html>
